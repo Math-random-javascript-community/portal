@@ -357,7 +357,7 @@ Resources:
     
   
   IdentityPoolRoleMap:
-  # Created to map Auth and Unauth roles to the identity pool
+  # Created to map AuthComponent and Unauth roles to the identity pool
   # Depends on Identity Pool for ID ref
     Type: AWS::Cognito::IdentityPoolRoleAttachment
     Properties: 
