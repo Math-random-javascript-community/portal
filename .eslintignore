@@ -6,5 +6,6 @@
 
 /.next/
 /out/
+/amplify/
 
 /build
