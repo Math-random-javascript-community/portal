@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import { Auth } from '@aws-amplify/auth';
 import { Hub } from 'aws-amplify';
+import { SignUp } from './SignUp/SignUp';
 
 const initialFormState = {
   username: '',
@@ -10,7 +11,7 @@ const initialFormState = {
   formType: 'signUp'
 };
 
-export function AuthComponent() {
+export function AuthComponent(): JSX.Element {
   const [formState, updateFormState] = useState(initialFormState);
   const [user, updateUser] = useState(null);
 
@@ -19,7 +20,7 @@ export function AuthComponent() {
     setAuthListener();
   }, []);
 
-  async function setAuthListener() {
+  const setAuthListener = async () => {
     Hub.listen('auth', (data) => {
       switch (data.payload.event) {
         case 'signOut': {
@@ -30,9 +31,9 @@ export function AuthComponent() {
           break;
       }
     });
-  }
+  };
 
-  async function checkUser() {
+  const checkUser = async () => {
     try {
       const user = await Auth.currentAuthenticatedUser();
       updateUser(user);
@@ -40,52 +41,44 @@ export function AuthComponent() {
     } catch (err) {
       updateUser(null);
     }
-  }
+  };
 
-  function onChange(e) {
-    e.persist();
-    updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }));
-  }
+  const onChange = (event: BaseSyntheticEvent) => {
+    event.persist();
+    updateFormState(() => ({ ...formState, [event.target.name]: event.target.value }));
+  };
 
   const { formType } = formState;
 
-  async function signUp() {
+  const signUp = async () => {
     const { username, email, password } = formState;
     await Auth.signUp({ username, password, attributes: { email } });
     updateFormState(() => ({ ...formState, formType: 'confirmSignUp' }));
-  }
+  };
 
-  async function confirmSignUp() {
+  const confirmSignUp = async () => {
     const { username, authCode } = formState;
     await Auth.confirmSignUp(username, authCode);
     updateFormState(() => ({ ...formState, formType: 'signIn' }));
-  }
+  };
 
-  async function signIn() {
+  const signIn = async () => {
     const { username, password } = formState;
     await Auth.signIn(username, password);
     updateFormState(() => ({ ...formState, formType: 'signedIn' }));
-  }
+  };
+
+  const openSignInForm = () => {
+    updateFormState(() => ({
+      ...formState,
+      formType: 'signIn'
+    }));
+  };
 
   return (
     <>
       {formType === 'signUp' && (
-        <div>
-          <input type="text" name="username" onChange={onChange} placeholder="username" />
-          <input type="password" name="password" onChange={onChange} placeholder="password" />
-          <input type="text" name="email" onChange={onChange} placeholder="email" />
-          <button onClick={signUp}>Sign Up</button>
-          <button
-            onClick={() =>
-              updateFormState(() => ({
-                ...formState,
-                formType: 'signIn'
-              }))
-            }
-          >
-            Sign In
-          </button>
-        </div>
+        <SignUp handleOnChange={onChange} signUp={signUp} openSignInForm={openSignInForm} />
       )}
       {formType === 'confirmSignUp' && (
         <div>
