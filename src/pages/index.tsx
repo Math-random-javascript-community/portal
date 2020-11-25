@@ -4,7 +4,7 @@ import { AuthComponent } from './AuthComponent/AuthComponent';
 
 Amplify.configure(config);
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <>
       <AuthComponent />
