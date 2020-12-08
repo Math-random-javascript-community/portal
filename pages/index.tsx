@@ -1,58 +1,61 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import React from 'react';
+import {REVALIDATE_TIME} from '../constants/main';
+import {Digest, Filter} from '../interfaces/index';
 
-export default function Home() {
+import Layout from '../components/Layout/Layout';
+import {DigestsListComponent} from '../components/Digests';
+import {getDigestList} from '../lib/digests';
+
+type Props = {
+  itemsList: Digest[]
+  filtersList: Filter[]
+  errors: string
+}
+
+
+export default function Home(propsData: Props) {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a href="https://github.com/vercel/next.js/tree/master/examples" className={styles.card}>
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+    <Layout home={true} propsData={propsData}>
+      <DigestsListComponent digestsListData={propsData.itemsList} errors={propsData.errors}/>
+    </Layout>
   );
+}
+
+export async function getStaticProps() {
+  try {
+    const digestData = await getDigestList(3);
+    const filtersListData = [
+      {
+        id: 1,
+        'title': 'VUE',
+      },
+      {
+        id: 2,
+        'title': 'EXPRESS',
+      },
+      {
+        id: 3,
+        'title': 'PHP',
+      },
+      {
+        id: 4,
+        'title': 'JAVA',
+      }
+    ];
+
+    
+    return {
+      props: {
+        itemsList: digestData ? digestData : [],
+        filtersList: filtersListData
+      },
+      revalidate: REVALIDATE_TIME,
+    };
+  } catch (err) {
+    return {
+      props: {
+        errors: err.message
+      }
+    };
+  }
 }
