@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import {Digest} from '../../interfaces';
-import EventDate from '../Blocks/EventDate';
+import DigestDate from '../Blocks/DigestDate';
 
 type itemProps = {
     itemData: Digest
@@ -12,27 +12,27 @@ const DigestItem = ({itemData, isLinked}: itemProps) => (
   <>
     <div><h3>DigestItem</h3>
       {isLinked && (
-        <Link href="/digests/[id]" as={`/digests/${itemData.id}`}>
+        <Link href="/digests/[Id]" as={`/digests/${itemData.Id}`}>
           <a>
-            <span> Digest #{itemData.id} </span>
+            <span> Digest #{itemData.Id} </span>
             
             <small>
-              <EventDate dateString={itemData.date}/>
+              <DigestDate dateString={itemData.digest_date}/>
             </small>
             
-            <div dangerouslySetInnerHTML={{__html: itemData.content}}/>
+            <div dangerouslySetInnerHTML={{__html: itemData.description}}/>
           </a>
         </Link>
       )}
       {!isLinked && (
         <div>
-          <span> Digest #{itemData.id} </span>
+          <span> Digest #{itemData.Id} </span>
 
           <small>
-            <EventDate dateString={itemData.date}/>
+            <DigestDate dateString={itemData.digest_date}/>
           </small>
 
-          <div dangerouslySetInnerHTML={{__html: itemData.content}}/>
+          <div dangerouslySetInnerHTML={{__html: itemData.description}}/>
         </div>
       )}      
     </div>

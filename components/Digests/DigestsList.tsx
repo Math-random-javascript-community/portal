@@ -13,7 +13,7 @@ const DigestList = ({ digestsListData, errors}: Props) => (
     
     <h2>Digests List</h2>
     {digestsListData && digestsListData.map((row) => (
-      <div key={row.id}>
+      <div key={row.Id}>
         <DigestItem itemData={row} isLinked={true} /> 
       </div>
     ))}
