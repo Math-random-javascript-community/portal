@@ -2,80 +2,85 @@
  * Events
  */
 
-export type Events = {
-  id: number,
-  title: string,
-  description: string,
-  event_date: string,
-  location_url: string,
-  location_address: string,
-  summary: string,
-  status: string,
-  talks: Talks[]
+export type EventType = {
+  id: string
+  Id: number
+  title: string
+  description: string
+  event_date: string
+  location: string
+  address: string
+  summary: string
+  status: string
+  talks: TalkType[]
 }
 
-export type Talks = {
-  id: number,
-  title: string,
-  description: string,
-  talk_date: string,
-  language: string,
-  tags: string[],
-  status: string,
-  location: string,
-  authors: Authors[]
+export type TalkType = {
+  id: string
+  Id: number  
+  title: string
+  description: string
+  talk_date: string
+  language: string
+  tags: string[]
+  status: string
+  location: string
+  authors: AuthorType[]
 }
 
-export type Authors = {
-  id: number  
+export type AuthorType = {
+  id: string
+  Id: number  
   email: string
   name: string
-  title: string
   about: string
   links: string[]
-  photo: AttachmentMedia[]
+  photo: AttachmentMediaType[]
   status: string
 }
 
 /**
  * Digests
  */
-export type Post = {
+export type PostType = {
   id: string
   Id: number
   content: string
   tags: string[]
   links: string[]
   media_type: string
-  media: AttachmentMedia[]
+  media: AttachmentMediaType[]
   priority: number
   post_date: string
   status: string
 }
 
-export type Digest = {
+export type DigestType = {
   id: string
   Id: number
   title: string
   description: string
   digest_date: string
   status: string
-  posts: Post[]
+  posts: PostType[]
 }
 
 /**
  * Additional types
  */
-export type AttachmentMedia = {
-  id: string,
-  size: number,
-  url: string,
-  type: string,
-  filename: string,
+export type AttachmentMediaType = {
+  id: string
+  size: number
+  url: string
+  type: string
+  filename: string
   thumbnails: object
 }
 
-export type Filter = {
+export type FilterStatusType = 'active' | 'all' | 'default';
+
+export type FilterType = {
   id: number
   title: string
+  status: FilterStatusType
 }

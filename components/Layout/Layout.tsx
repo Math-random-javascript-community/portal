@@ -2,70 +2,68 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, {ReactNode} from 'react';
 
-import {Footer} from '../Footer/index';
-import FiltersLayout from './Filters';
-import {Filter} from "../../interfaces";
+import {Footer} from '../Footer';
+import {Header} from '../Header';
+import {SITE_TITLE} from '../../constants/main';
+import styled from 'styled-components';
+import SubmitWebinar from '../Blocks/SubmitWebinar';
 
-
-const siteTitle: string = 'Math.random(); community portal';
-
-type PropsDataT = {
-    itemsList: Array<object>
-    filtersList: Filter[]
-    errors: string
+type LayoutProps = {
+  children?: ReactNode
+  isHome?: boolean
 }
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
 
-type Props = {
-    children?: ReactNode
-    home?: boolean
-    propsData?: PropsDataT
-}
+`;
+const PageWrapper = styled.div`
+  width: 1111px;
+`;
+const BottomWrapper = styled.div`
+  width: 100%;
+  margin-top: 50px;
+`;
 
-const Layout =({ children, home, propsData }: Props) =>  (
-  <div>
-    <Head>
-      <link rel="icon" href="/favicon.ico" />
-      <meta
-        name="description"
-        content="Math.random(); community portal"
-      />
-      <meta name="og:title" content={siteTitle} />
-    </Head>
-    <header>
-      <h2>Page header</h2>
-        
-      {home ? (
-        <>
-          <FiltersLayout data={propsData.filtersList}/>
-          <h2>Home page </h2>
-          <h3>{siteTitle}</h3>
-        </>
-      ) : (
-        <>
-          <h2>Not Home page </h2>
-          <h4 >
-            <Link href="/">
-              <a >{siteTitle}</a>
-            </Link>
-          </h4>
-        </>
+const StyledBack = styled.div`
+  padding: 10px 0;
+`;
+
+const Layout = ({children, isHome}: LayoutProps) => (
+  <Wrapper>
+    <PageWrapper>
+      <Head>
+        <link rel="icon" href="/favicon.ico"/>
+        <meta
+          name="description"
+          content="Math.random(); community portal"
+        />
+        <meta name="og:title" content={SITE_TITLE}/>
+      </Head>
+      <Header isHome={isHome}/>
+      <main>
+        {children}
+      </main>
+
+      {!isHome && (
+        <StyledBack>
+          <Link href="/">
+            <a>← Back to home</a>
+          </Link>
+        </StyledBack>
       )}
-    </header>
-    <main>
-      <h2>page content</h2>
-      {children}
-    </main>
-        
-    {!home && (
-      <div>
-        <h2>Not home page </h2>
-        <Link href="/">
-          <a>← Back to home</a>
-        </Link>
-      </div>
+    </PageWrapper>
+    {isHome && (
+      <BottomWrapper>
+        <SubmitWebinar/>
+      </BottomWrapper>
     )}
-    <Footer />
-  </div>
+    <PageWrapper>
+      <Footer/>
+    </PageWrapper>
+  </Wrapper>
 );
 
 export default Layout;

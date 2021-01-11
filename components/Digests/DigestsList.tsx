@@ -1,24 +1,28 @@
 import React from 'react';
-import { Digest } from '../../interfaces';
+import styled from 'styled-components';
+import {DigestType} from '../../interfaces';
 import DigestItem from './DigestItem';
+import DigestProvider from './DigestItemProvider';
+
+const Wrapper = styled.div`
+  width: 451px;
+  display: flex;
+  flex-direction: column;
+`;
 
 type Props = {
-    digestsListData: Digest[],
-    errors: string
+  data: DigestType[],
+  errors?: string
 }
 
-const DigestList = ({ digestsListData, errors}: Props) => (
-  <>
-    {errors &&  (  <p>  <span style={{color: 'red'}}>Error:</span> {errors} </p>  )}
-    
-    <h2>Digests List</h2>
-    {digestsListData && digestsListData.map((row) => (
-      <div key={row.Id}>
-        <DigestItem itemData={row} isLinked={true} /> 
-      </div>
+const DigestList = ({data}: Props) => (
+  <Wrapper>
+    {data && data.map((row) => (
+      <DigestProvider key={row.Id} data={row}>
+        <DigestItem />
+      </DigestProvider>
     ))}
-  </>
+  </Wrapper>
 );
-
 
 export default DigestList;

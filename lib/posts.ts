@@ -1,62 +1,68 @@
-import getDataBase, {buildFilterByKeys} from './db';
-import {Post} from '../interfaces';
+import getDataBase, {getRelatedRecordsByKeys} from './db';
+import {PostType} from '../interfaces';
 
 const base = getDataBase();
-const postsTable = base('Posts');
+const baseTable = base('Posts');
 
-const getMappedRecords = function (records): Post[] {
+/**
+ * Get mapped records
+ *
+ * @param records
+ */
+const getMappedRecords = function (records): PostType[] {
   return records.map(record => mapRow(record));
 };
 
-const mapRow = function (record): Post {
+/**
+ *  Map a record as Post
+ *
+ * @param record
+ */
+const mapRow = function (record): PostType {
   const {id, fields} = record;
 
   return {
     id: id,
     Id: fields['Id'],
-    content: fields['Content'] ? fields['Content'] : '',
-    tags: fields['Tags'] ? fields['Tags'] : [],
-    links: fields['Links'] ? fields['Links'] : [],
-    media_type: fields['Media Type'] ? fields['Media Type'] : '',
-    media: fields['Media'] ? fields['Media'] : [],
-    priority: fields['Priority'] ? fields['Priority'] : '',
-    post_date: fields['Created at'] ? fields['Created at'] : '',
-    status: fields['Status'] ? fields['Status'] : '',
+    content: fields['Content'] ?? '',
+    tags: fields['Tags'] ?? [],
+    links: fields['Links'] ?? [],
+    media_type: fields['Media Type'] ?? '',
+    media: fields['Media'] ?? [],
+    priority: fields['Priority'] ?? '',
+    post_date: fields['Created at'] ?? '',
+    status: fields['Status'] ?? '',
   };
 };
 
+/**
+ * Get Digest by `id`
+ * 
+ * @param id
+ */
 export async function getPost(id: number) {
-  const where = {
+  const whereFilter = {
     filterByFormula: `({Id} = ${id})`,
     maxRecords: 1
   };
-  const records: object[] = await postsTable.select(where).all();
+  const records: object[] = await baseTable.select(whereFilter).all();
 
   if (!records) {
     return {};
   }
 
-  const mappedRow: Post[] = await getMappedRecords(records);
+  const mappedRow: PostType[] = await getMappedRecords(records);
 
   return mappedRow[0];
 }
 
 /**
- * Returns all Posts objects from Posts table by keys
- * 
+ * Returns all Posts objects from `Posts` table by keys
+ *
+ * @param keys
  * @param limit
  */
-export async function getPostsListByKeys(Keys: string[], limit: number) {
-  const filter = {
-    filterByFormula: buildFilterByKeys(Keys),
-    maxRecords: limit
-  };
-
-  const records = await postsTable.select(filter).all();
-
-  if (!records) {
-    return [];
-  }
-
-  return getMappedRecords(records);
+export async function getPostsListByKeys(keys: string[], limit?: number) {
+  return await getRelatedRecordsByKeys(baseTable, getMappedRecords, keys, limit);
 }
+

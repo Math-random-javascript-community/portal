@@ -1,27 +1,27 @@
+import Layout from '../../components/Layout/Layout';
+import {ErrorsContainer, Loading} from '../../components/Blocks';
+import {getEvent} from '../../lib/events';
+import {Event} from '../../components/Events';
+import {EventType} from '../../interfaces';
 import React from 'react';
 import {useRouter} from 'next/router';
 import {REVALIDATE_TIME} from '../../constants/main';
-import {DigestType} from '../../interfaces';
-import Layout from '../../components/Layout/Layout';
-import {ErrorsContainer, Loading} from '../../components/Blocks';
-import {getDigest} from '../../lib/digests';
-import {Digest} from '../../components/Digests';
-import DigestProvider from '../../components/Digests/DigestItemProvider';
+import EventItemProvider from '../../components/Events/EventItemProvider';
 
 type PropsType = {
-  itemData: DigestType
+  itemData: EventType
   errors: string
 }
 
-export default function DigestRow ({itemData, errors}: PropsType) {
-  const router = useRouter()
+export default function EventRow({itemData, errors}: PropsType) {
+  const router = useRouter();
 
   if (router.isFallback) {
     return (
       <Layout>
         <Loading/>
       </Layout>
-    )
+    );
   }
   if (errors) {
     return (
@@ -30,17 +30,16 @@ export default function DigestRow ({itemData, errors}: PropsType) {
           {errors}
         </ErrorsContainer>
       </Layout>
-    )
+    );
   }
   return (
     <Layout>
-      <DigestProvider data={itemData}>
-        <Digest/>
-      </DigestProvider>
+      <EventItemProvider data={itemData}>
+        <Event/>
+      </EventItemProvider>
     </Layout>
-  )
+  );
 }
-
 
 export async function getStaticPaths() {
   // const paths = getAllPostIds();
@@ -53,11 +52,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}) {
   try {
-    const digestData = await getDigest(params.id);
-
+    const eventData = await getEvent(params.id);
+    
     return {
       props: {
-        itemData: digestData ?? {}
+        itemData: eventData ?? {}
       },
       revalidate: REVALIDATE_TIME,
     };

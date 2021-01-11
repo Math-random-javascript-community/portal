@@ -1,73 +1,96 @@
-import getDataBase from './db';
-import {Digest, Post} from '../interfaces';
+import getDataBase, {getAllRelatedKeys, joinRelatedTable, RecordType} from './db';
+import {DigestType, PostType} from '../interfaces';
 import {getPostsListByKeys} from './posts';
 
 const base = getDataBase();
-const digestTable = base('Digests');
+const baseTable = base('Digests');
 
 /**
- * Returns Digit rows including linked records from other tables
- * 
+ * Related tables definition
+ */
+const RELATED_POSTS = 'Posts';
+
+type RelatedStorageType = {
+  [RELATED_POSTS]: any
+}
+
+/**
+ * Get mapped Digest rows including linked records from other tables
+ *
  * @param records
  */
-const getMappedRecords = async function (records) {
-  // get keys from all Posts fields
-  const potsKeys = records.map(record => record.fields['Posts']).flat();
+const getMappedRecords = async function (records: RecordType[]) {
+  const relatedTables = [
+    RELATED_POSTS
+  ];
+  const relatedKeys = getAllRelatedKeys(relatedTables, records);
+  const relatedStorage: RelatedStorageType = {
+    [RELATED_POSTS]: await getPostsListByKeys(relatedKeys[RELATED_POSTS])
+  };
 
-  // get all Posts objects from related Posts table by keys
-  const postsList = await getPostsListByKeys(potsKeys, 10);
-
-  // make a storage object with properties as a key and containing all related Posts objects
-  const relatedPosts = {};
-  postsList.forEach((item: Post) => {
-    relatedPosts[item.id] = item;
-  });
-
-  return records.map(function (record) {
-    return mapRecord(record, relatedPosts);
-  });
+  return records.map((record: RecordType) =>
+    mapRecord(record, relatedStorage)
+  );
 };
 
 /**
- * Returns mapped records as Digest
+ * Map record as Digest
  * 
- * @param record
- * @param relatedRowsStorage
+ * @param record RecordType
+ * @param relatedStorage RelatedStorageType
  */
-const mapRecord = function (record, relatedRowsStorage): Digest {
+const mapRecord = function (record: RecordType, relatedStorage: RelatedStorageType): DigestType {
   const {id, fields} = record;
 
   return {
     id: id,
     Id: fields['Id'],
-    title: fields['Title'] ? fields['Title'] : '',
-    description: fields['Description'] ? fields['Description'] : '',
-    status: fields['Status'] ? fields['Status'] : '',
-    digest_date: fields['Digest Date'] ? fields['Digest Date'] : '',
-    posts: joinPosts(fields['Posts'], relatedRowsStorage)
+    title: fields['Title'] ?? '',
+    description: fields['Description'] ?? '',
+    status: fields['Status'] ?? '',
+    digest_date: fields['Digest Date'] ?? '',
+    posts: (fields[RELATED_POSTS] ? joinPosts(fields[RELATED_POSTS], relatedStorage[RELATED_POSTS]) : [])
   };
 };
 
-const joinRelatedData = function (keys: string[], relatedRowsStorage: object): any[] {
-
-  if (!keys || !relatedRowsStorage) {
+/**
+ * Join data from related Posts table
+ *
+ * @param keys string[]
+ * @param relatedStorage RelatedStorageType
+ */
+const joinPosts = function (keys: string[], relatedStorage: RelatedStorageType): PostType[] {
+  if (!keys || !relatedStorage) {
     return [];
   }
 
-  return keys.flat().map((key) => { if (relatedRowsStorage[key]) return relatedRowsStorage[key]; });
-};
-
-const joinPosts = function (keys: string[], relatedRowsStorage: []): Post[]{
-  return joinRelatedData(keys, relatedRowsStorage);
+  return joinRelatedTable(keys, relatedStorage);
 };
 
 /**
- * gets lists of digests
+ * Fetch data from base table using filter
+ *
+ * @param whereFilter object
+ */
+async function fetchBaseTable(whereFilter: object) {
+  const records: RecordType[] = await baseTable.select(whereFilter).all();
+
+  if (!records) {
+    return [];
+  }
+
+  const mappedRecords: DigestType[] = await getMappedRecords(records);
+
+  return mappedRecords ?? [];
+}
+
+/**
+ * Get list of all Digests ordered by `Digest Date`
  *
  * @param limit
  */
 export async function getDigestList(limit: number) {
-  const filter = {
+  const whereFilter = {
     maxRecords: limit,
     sort: [
       {
@@ -76,28 +99,41 @@ export async function getDigestList(limit: number) {
       }
     ]
   };
-  
-  const records = await digestTable.select(filter).all();
 
-  if (!records) {
-    return [];
-  }
+  const records: DigestType[] = await fetchBaseTable(whereFilter);
 
-  return await getMappedRecords(records);
+  return records ?? [];
 }
 
+/**
+ * Get Digest by `id`
+ *
+ * @param id
+ */
 export async function getDigest(id: number) {
-  const where = {
+  const whereFilter = {
     filterByFormula: `({Id} = ${id})`,
     maxRecords: 1
   };
-  const records: Object[] = await digestTable.select(where).all();
+  const records: DigestType[] = await fetchBaseTable(whereFilter);
 
-  if (!records) {
-    return {};
-  }
+  return (records && records[0]) ?? {};
+}
 
-  const mappedRecords: Digest[] = await getMappedRecords(records);
+/**
+ * Get Last Digest
+ */
+export async function getLastDigest() {
+  const whereFilter = {
+    maxRecords: 1,
+    sort: [
+      {
+        field: 'Digest Date',
+        direction: 'desc'
+      }
+    ]
+  };
+  const records: DigestType[] = await fetchBaseTable(whereFilter);
 
-  return mappedRecords[0];
+  return (records && records[0]) ?? {};
 }

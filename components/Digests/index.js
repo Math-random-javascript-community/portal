@@ -1,7 +1,11 @@
-import Item from './DigestItem';
-import List from './DigestsList';
+import DigestItem from './DigestItem';
+import Digest from './Digest';
+import DigestsList from './DigestsList';
+import DigestItemProvider from './DigestItemProvider';
 
 export {
-  Item as DigestItem,
-  List as DigestsListComponent,
+  Digest,
+  DigestItem,
+  DigestItemProvider,
+  DigestsList
 };
