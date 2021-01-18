@@ -12,19 +12,20 @@ import {getPastEventList, getUpcomingEventList} from '../lib/events';
 import UpcomingEvents from '../components/Events/UpcomingEvents';
 import PastEvents from '../components/Events/PastEvents';
 import {ErrorsContainer, Title} from '../components/Blocks';
+import Subscribe from '../components/Subscription/Subscribe';
 
 const Wrapper = styled.div`
   display: flex;
 `;
 const TopWrapper = styled.div`
   margin-top: 20px;
-  display: flex;
+  display: flow;
+  flex-wrap: wrap;
   justify-content: space-between;
 `;
 const LastDigestWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 451px;
 `;
 const LastDigestTitle = styled(Title)`
   align-self: flex-start;
@@ -37,8 +38,6 @@ const History = styled.div`
 const SubscribeWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`;
-const Subscribe = styled.div`
   margin-top: 20px;
 `;
 
@@ -64,7 +63,7 @@ export default function Home(props: HomeProps) {
             <History>
               <Link href={"/history"}>History</Link>
             </History>
-            <Subscribe><img src={'/SubscribeDiv.png'}/></Subscribe>
+            <Subscribe/>
           </SubscribeWrapper>
         </TopWrapper>
         <UpcomingEvents eventList={props.upcomingEventList} errors={props.errors}/>

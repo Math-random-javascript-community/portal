@@ -14,14 +14,14 @@ type PropsType = {
 }
 
 export default function DigestRow ({itemData, errors}: PropsType) {
-  const router = useRouter()
+  const router = useRouter();
 
   if (router.isFallback) {
     return (
       <Layout>
         <Loading/>
       </Layout>
-    )
+    );
   }
   if (errors) {
     return (
@@ -30,7 +30,7 @@ export default function DigestRow ({itemData, errors}: PropsType) {
           {errors}
         </ErrorsContainer>
       </Layout>
-    )
+    );
   }
   return (
     <Layout>
@@ -38,7 +38,7 @@ export default function DigestRow ({itemData, errors}: PropsType) {
         <Digest/>
       </DigestProvider>
     </Layout>
-  )
+  );
 }
 
 

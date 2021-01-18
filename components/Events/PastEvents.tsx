@@ -8,7 +8,9 @@ import {Title} from '../Blocks';
 const Wrapper = styled.div`
   margin-top: 20px;
 `;
-
+const StyledTitle = styled(Title)`
+  margin-top: 20px;
+`;
 const StyledList = styled.div`
   margin-top: 10px;
 `;
@@ -24,7 +26,7 @@ type Props = {
 
 const PastEvents = ({eventList, errors}: Props) => (
   <Wrapper>
-    <Title>Past events</Title>
+    <StyledTitle>Past events</StyledTitle>
     <StyledList>
       <EventsList data={eventList} errors={errors} type={'past'}/>
     </StyledList>

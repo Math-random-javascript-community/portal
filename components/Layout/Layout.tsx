@@ -14,13 +14,17 @@ type LayoutProps = {
 }
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  flex-wrap: wrap;
-
 `;
 const PageWrapper = styled.div`
-  width: 1111px;
+  padding: 0 10px;
+  max-width: 1111px;
+  min-width: 375px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 `;
 const BottomWrapper = styled.div`
   width: 100%;

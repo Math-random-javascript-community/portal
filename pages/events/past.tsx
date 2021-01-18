@@ -1,4 +1,5 @@
 import Layout from '../../components/Layout/Layout';
+import styled from 'styled-components';
 import {ErrorsContainer, Loading} from '../../components/Blocks';
 import {getPastEventList} from '../../lib/events';
 import {EventType} from '../../interfaces';
@@ -7,6 +8,10 @@ import {useRouter} from 'next/router';
 import {REVALIDATE_TIME} from '../../constants/main';
 import {EventsList} from '../../components/Events';
 import {Title} from '../../components/Blocks';
+
+const StyledTitle = styled(Title)`
+  margin-top: 20px;
+`;
 
 type PropsType = {
   eventList: EventType[]
@@ -34,7 +39,7 @@ export default function EventRow({eventList, errors}: PropsType) {
   }
   return (
     <Layout>
-      <Title>Past events</Title>
+      <StyledTitle>Past events</StyledTitle>
       <EventsList type={'past'} data={eventList} errors={errors}/>
     </Layout>
   );

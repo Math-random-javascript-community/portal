@@ -1,20 +1,62 @@
 import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 import {FiltersLayout} from '../Layout';
+import {SITE_TITLE} from '../../constants/main';
+import Link from 'next/link';
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-`;
+  flex-wrap: nowrap;
 
-const TopLinks = styled.div`
-  text-align: center;
-  font-size: 16px;
-`;
+  .mainMenuBtn {
+    display: none;
+  }
 
-const Logo = styled.section`
+  @media screen and (max-width: 750px) {
+    flex-direction: row;
+
+    .mainMenuBtn {
+      //visibility: visible;
+      display: flex;
+    }
+  }
+`;
+const MenuButton = styled.div`
+  width: 24px;
+  height: 24px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+`;
+const TopMenu = styled.div`
   margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+
+  @media screen and (max-width: 750px) {
+    flex-direction: column;
+  }
+`;
+const MenuItems = styled.div`
+  margin-top: 10px;
+  margin-left: 10px;
+  display: flex;
+  align-content: center;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 750px) {
+    flex-direction: column;
+  }
+`;
+
+const MenuItem = styled.div`
+`;
+
+const Logo = styled.div`
+  margin-top: 10px;
+  margin-left: 20px;
 `;
 
 const LinkedText = styled.a`
@@ -23,10 +65,10 @@ const LinkedText = styled.a`
 `;
 
 const UserWrapper = styled.div`
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 230px;
+  width: 200px;
 `;
 
 const Login = styled.div`
@@ -60,26 +102,31 @@ type Props = {
 const Header = ({isHome}: Props) => (
   <header>
     <Wrapper>
-      {!isHome ? (
-        <Logo as="a" href="/"><img src={'/logo.svg'}/></Logo>
-      ) : (
-        <Logo><img src={'/logo.svg'}/></Logo>
-      )}
-      <TopLinks>
-        <LinkedText href="/events/upcoming">Upcoming events</LinkedText>
-        <LinkedText href="/events/past">Past events</LinkedText>
-        <LinkedText href="/digests/all">Digest</LinkedText>
-      </TopLinks>
-      <UserWrapper>
-        <Register>
-          <StyledIcon src={'/Register.png'}/>
-          <LinkedText href="/register">register</LinkedText>
-        </Register>
-        <Login>
-          <StyledIcon src={'/Login.png'}/>
-          <LinkedText href="/login">login</LinkedText>
-        </Login>
-      </UserWrapper>
+      <MenuButton className="mainMenuBtn"><img src={'/MenuActive.png'} alt={'Menu'}/></MenuButton>
+      <TopMenu>
+        <Logo>
+          {!isHome ? (
+            <Link href="/"><img src={'/logo.svg'} alt={SITE_TITLE}/></Link>
+          ) : (
+            <img src={'/logo.svg'} alt={SITE_TITLE}/>
+          )}
+        </Logo>
+        <MenuItems>
+          <MenuItem><LinkedText href="/events/upcoming">Upcoming events</LinkedText></MenuItem>
+          <MenuItem><LinkedText href="/events/past">Past events</LinkedText></MenuItem>
+          <MenuItem><LinkedText href="/digests/all">Digest</LinkedText></MenuItem>
+        </MenuItems>
+        <UserWrapper>
+          <Register>
+            <StyledIcon src={'/Register.png'}/>
+            <LinkedText href="/register">register</LinkedText>
+          </Register>
+          <Login>
+            <StyledIcon src={'/Login.png'}/>
+            <LinkedText href="/login">login</LinkedText>
+          </Login>
+        </UserWrapper>
+      </TopMenu>
     </Wrapper>
     <Title>Topics and events by technology</Title>
     <FiltersLayout/>

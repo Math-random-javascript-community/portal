@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import {TopicButton} from './index';
 
 const Wrapper = styled.div`
-  margin-top: 20px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height: 154px;
+  min-height: 154px;
   background: #333333;
 `;
 
@@ -18,13 +18,14 @@ const SubmitButton = styled(TopicButton)`
   width: 256px;
   height: 40px;
   text-transform: uppercase;
+  margin: 0px 5px;
 `;
 const Title = styled.div`
   color: #FFFFFF;
-  width: 466px;
-  height: 40px;
+  min-width: 370px;
   text-transform: uppercase;
-  align-self: center;
+  margin: 0px 5px;
+  text-align: center;
 `;
 
 const SubmitWebinar = () => (

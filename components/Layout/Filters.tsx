@@ -6,6 +6,7 @@ import {FilterItemProvider} from '../Filters';
 
 const FiltersList = styled.div`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   height: 50px;
@@ -16,7 +17,7 @@ const data: FilterType[] = [
     id: 0,
     'title': 'ALL',
     'status': "all"
-  }, 
+  },
   {
     id: 1,
     'title': 'VUE',

@@ -152,7 +152,7 @@ export async function getEvent(id: number) {
  */
 export async function getPastEventList(limit: number) {
   const whereFilter = {
-    filterByFormula: `({Event Date} <= NOW())`,
+    filterByFormula: '({Event Date} <= NOW())',
     maxRecords: limit,
     sort: [
       {

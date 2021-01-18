@@ -5,7 +5,7 @@ import DigestItem from './DigestItem';
 import DigestProvider from './DigestItemProvider';
 
 const Wrapper = styled.div`
-  width: 451px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;

@@ -6,11 +6,12 @@ import {getPopularShortcuts} from '../../lib/shortcuts';
 const Wrapper = styled.div`
   margin: 50px 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap-reverse;
 `;
 
 const Shortcuts = styled.div`
-  width: 220px;
+  width: 346px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -19,7 +20,7 @@ const Shortcuts = styled.div`
 
 const Contacts = styled.div`
   font-size: 16px;
-  width: 432px;
+  width: 346px;
 `;
 
 const ShortcutItem = styled.div`
@@ -35,6 +36,7 @@ const ShortcutTitle = styled.div`
   text-align: center;
   font-weight: bold;
   font-size: 24px;
+  width: 346px;
 `;
 const EmailIcon = styled.img`
   margin-right: 10px;
@@ -52,13 +54,12 @@ const MediaIcons = styled.div`
   justify-content: space-around;
 `;
 const SocialMedia = styled.div`
-  width: 432px;
+  //width: 432px;
 `;
 const EmailWrapper = styled.div`
   margin-top: 30px;
-  width: 432px;
+  width: 346px;
   display: flex;
-  align-items: center;
   justify-content: flex-start;
 `;
 
@@ -86,7 +87,9 @@ const Footer = () => (
 
         <EmailWrapper>
           <EmailIcon src={'/MailDisable.svg'}/>
-          Email us: <Link href={'mailto: math.random@mathrandom.com'}>math.random@mathrandom.com</Link>
+          <div>
+            Email us: <Link href={'mailto:math.random@mathrandom.com'}>math.random@mathrandom.com</Link>
+          </div>
         </EmailWrapper>
       </Contacts>
     </Wrapper>

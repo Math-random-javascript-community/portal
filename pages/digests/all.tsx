@@ -1,4 +1,5 @@
 import Layout from '../../components/Layout/Layout';
+import styled from 'styled-components';
 import {ErrorsContainer, Loading} from '../../components/Blocks';
 import {getDigestList} from '../../lib/digests';
 import {DigestType} from '../../interfaces';
@@ -7,6 +8,10 @@ import {useRouter} from 'next/router';
 import {REVALIDATE_TIME} from '../../constants/main';
 import {DigestsList} from '../../components/Digests';
 import {Title} from '../../components/Blocks';
+
+const StyledTitle = styled(Title)`
+  margin-top: 20px;
+`;
 
 type PropsType = {
   digestList: DigestType[]
@@ -34,7 +39,7 @@ export default function DigestRow({digestList, errors}: PropsType) {
   }
   return (
     <Layout>
-      <Title>All Digests</Title>
+      <StyledTitle>All Digests</StyledTitle>
       <DigestsList data={digestList} errors={errors}/>
     </Layout>
   );

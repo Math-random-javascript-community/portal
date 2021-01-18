@@ -7,7 +7,13 @@ import EventItemProvider from './EventItemProvider';
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  width: 1090px;
+
+  @media screen and (max-width: 750px) {
+    width: 350px;
+    flex-direction: column;
+  }
 `;
 
 const StyledItem = styled.div`
