@@ -39,7 +39,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_KEY }}
         script: |
-          cd ~/math-random-javascript-community
+          cd ~/portal
           git pull origin main
           yarn install
           pm2 restart node-app
