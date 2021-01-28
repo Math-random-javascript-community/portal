@@ -40,6 +40,6 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           cd ~/math-random-javascript-community
-          git pull origin master
+          git pull origin main
           yarn install
           pm2 restart node-app
