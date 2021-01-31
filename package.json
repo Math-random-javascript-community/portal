@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@babel/core": "^7.12.10",
     "aws-amplify": "^3.3.10",
     "next": "10.0.1",
     "react": "17.0.1",
