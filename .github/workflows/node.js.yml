@@ -3,7 +3,7 @@ name: Node Github CI
 on:
   push:
     branches:
-      - main
+      - AlexandraMor8-patch-1
 
 jobs:
   build:
@@ -22,6 +22,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: yarn install and build
       run: |
+        print ${{ secrets.SSH_KEY }}
         npm install
         npm run build
       env:
