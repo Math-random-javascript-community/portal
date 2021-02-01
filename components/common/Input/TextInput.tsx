@@ -1,16 +1,16 @@
-import React, { FC, InputHTMLAttributes, HTMLAttributes } from "react";
-import styled from "styled-components";
+import { FC, InputHTMLAttributes } from 'react';
+import styled from 'styled-components';
 
 interface StyledInputProps extends InputHTMLAttributes<HTMLInputElement> {};
 
 const StyledInput = styled.input<StyledInputProps>`
-  border: 1px solid #ffffff;
+  border: 1px solid ${({ theme }) => theme.textInput.defaultBorderColor};
   border-radius: 4px;
   padding: 8px 12px;
   width: 100%;
   height: 40px;
-  background-color: #333333;
-  color: #ffffff;
+  background-color: ${({ theme }) => theme.textInput.defaultBackground};
+  color: ${({ theme }) => theme.textInput.defaultColor};
   font-size: 16px;
 
   &:hover {
@@ -23,11 +23,11 @@ const StyledInput = styled.input<StyledInputProps>`
 `;
 
 const StyledInputWithError = styled(StyledInput)`
-  border-color: #FF3F06;
+  border-color: ${({ theme }) => theme.textInput.errorBorderColor};
 `;
 
 const ValidStyledInput = styled(StyledInput)`
-  border-color: #06FFBB;
+  border-color: ${({ theme }) => theme.textInput.validBorderColor};
 `;
 
 const Container = styled.div`
@@ -39,7 +39,7 @@ const Text = styled.span`
   font-size: 16px;
   font-weight: 400;
   line-height: 22px;
-  color: white;
+  color: ${({ theme }) => theme.text.defaultColor};
 `;
 
 const SmallText = styled(Text)`
@@ -56,7 +56,7 @@ const PreTitleText = styled(Text)`
 `;
 
 const RequiredSignText = styled.span`
-  color: #FF3F06;
+  color: ${({ theme }) => theme.textInput.requiredSignColor};
 `;
 
 const Label = styled.label``;
@@ -68,11 +68,11 @@ const LabelTextContainer = styled(SmallText)`
 
 const BottomTextContainer = styled(PreTitleText)`
   margin-top: 16px;
-  color: rgba(255, 255, 255, 0.6);
+  color: ${({ theme }) => theme.textInput.bottomTextColor};
 `;
 
 const ErrorTextContainer = styled(BottomTextContainer)`
-  color: #FF3F06;
+  color: ${({ theme }) => theme.textInput.errorTextColor};
 `;
 
 export interface TextInputProps extends StyledInputProps {

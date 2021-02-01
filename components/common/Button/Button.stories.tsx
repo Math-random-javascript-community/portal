@@ -1,14 +1,12 @@
-import { storiesOf } from "@storybook/react";
+import { Story, Meta } from '@storybook/react/types-6-0';
 import { ButtonProps } from './Button';
 import { PrimaryButton } from './PrimaryButton';
 import { SecondaryButton } from './SecondaryButton';
 import { StandardButton } from './StandardButton';
 import { PositiveButton } from './PositiveButton';
-import { Story, Meta } from '@storybook/react/types-6-0';
-import React from "react";
 
 export default {
-  title: 'Components/Buttons',
+  title: 'Components/Button',
   component: PrimaryButton,
 } as Meta;
 

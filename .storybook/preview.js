@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { GlobalStyle, APP_THEME } from '../styles/globalStyle';
 import { ThemeProvider } from 'styled-components';
+import { GlobalStyle, APP_THEME } from '../styles/globalStyle';
 
 export const decorators = [
   Story => (
@@ -17,9 +16,13 @@ export const decorators = [
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
+    default: 'black',
     values: [{
       name: 'black', 
       value: '#000000',
+    }, {
+      name: 'white',
+      value: '#ffffff',
     }],
   },
 };

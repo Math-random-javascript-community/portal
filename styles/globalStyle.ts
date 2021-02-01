@@ -16,7 +16,6 @@ const COLORS = {
 
 const DEFAULT_THEME: DefaultTheme = {
   button: {
-    // defaultColor: '#000000',
     primaryBackground: COLORS.lemonSun,
     primaryColor: COLORS.black,
     primaryIconColor: COLORS.graphiteGrey,
@@ -30,11 +29,19 @@ const DEFAULT_THEME: DefaultTheme = {
     standardBackground: COLORS.graphiteGrey,
     standardColor: COLORS.crystalWhite,
   },
-  // badge: {
-  //   defaultBorderColor: COLORS.crystalWhite,
-  //   defaultBackground: COLORS.graphiteGrey,
-  //   defaultColor: COLORS.crystalWhite
-  // },
+  textInput: {
+    defaultBorderColor: COLORS.crystalWhite,
+    defaultBackground: COLORS.graphiteGrey,
+    defaultColor: COLORS.crystalWhite,
+    errorBorderColor: COLORS.hotRed,
+    validBorderColor: COLORS.toxicGreen,
+    requiredSignColor: COLORS.hotRed,
+    bottomTextColor: COLORS.brightGrey,
+    errorTextColor: COLORS.hotRed,
+  },
+  text: {
+    defaultColor: COLORS.crystalWhite,
+  },
 };
 
 const UBUNTU_FONT_URL =

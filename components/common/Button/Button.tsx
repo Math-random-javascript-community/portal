@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 type StyledButtonProps = {
   isRounded?: boolean;
@@ -46,6 +46,3 @@ export type ButtonProps = StyledButtonProps & {
 export const Button: React.FC<ButtonProps> = ({ text, ...props }) => (
   <StyledButton {...props}>{text}</StyledButton>
 );
-
-
-
