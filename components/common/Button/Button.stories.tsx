@@ -12,26 +12,26 @@ export default {
 
 export const Primary: Story<ButtonProps> = (args) => <PrimaryButton {...args} />;
 Primary.args = {
-    isRounded: false,
-    text: 'Primary button',
-    type: 'submit',
+  isRounded: false,
+  text: 'Primary button',
+  type: 'submit',
 };
 
 export const Secondary: Story<ButtonProps> = (args) => <SecondaryButton {...args} />;
 Secondary.args = {
-    isRounded: true,
-    text: 'Secondary button',
-    type: 'button',
+  isRounded: true,
+  text: 'Secondary button',
+  type: 'button',
 };
 
 export const Standard: Story<ButtonProps> = (args) => <StandardButton {...args} />;
 Standard.args = {
-    isRounded: false,
-    text: 'Standard button',
+  isRounded: false,
+  text: 'Standard button',
 };
 
 export const Positive: Story<ButtonProps> = (args) => <PositiveButton {...args} />;
 Positive.args = {
-    isRounded: true,
-    text: 'Positive button',
+  isRounded: true,
+  text: 'Positive button',
 };
