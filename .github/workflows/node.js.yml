@@ -22,8 +22,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: yarn install and build
       run: |
-        yarn install
-        yarn build
+        npm install
+        npm run build
       env:
         CI: true
 
@@ -41,5 +41,5 @@ jobs:
         script: |
           cd ~/portal
           git pull origin main
-          yarn install
-          pm2 restart node-app
+          npm install
+          pm2 restart next
