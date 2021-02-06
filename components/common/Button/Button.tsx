@@ -43,6 +43,6 @@ export type ButtonProps = StyledButtonProps & {
   text: string;
 };
 
-export const Button: React.FC<ButtonProps> = ({ text, ...props }) => (
+export const Button: React.FC<ButtonProps> = ({ text, ...props }: ButtonProps) => (
   <StyledButton {...props}>{text}</StyledButton>
 );
