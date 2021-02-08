@@ -1,7 +1,7 @@
 import { FC, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-interface StyledInputProps extends InputHTMLAttributes<HTMLInputElement> {};
+interface StyledInputProps extends InputHTMLAttributes<HTMLInputElement> { }
 
 const StyledInput = styled.input<StyledInputProps>`
   border: 1px solid ${({ theme }) => theme.textInput.defaultBorderColor};
@@ -84,9 +84,9 @@ export interface TextInputProps extends StyledInputProps {
   hasError?: boolean;
   hasValidValue?: boolean;
   requiredMessage?: string;
-};
+}
 
-export const TextInput: FC<TextInputProps> = ({ label, isRequired, bottomText, hasError, hasValidValue, requiredMessage, ...props }) => (
+export const TextInput: FC<TextInputProps> = ({ label, isRequired, bottomText, hasError, hasValidValue, requiredMessage, ...props }: TextInputProps) => (
   <Container>
     <Label>
       {label && (
