@@ -43,4 +43,5 @@ jobs:
           cd ~/portal
           git pull origin main
           npm install
-          pm2 restart next
+          npm run build
+          pm2 restart math-random-portal
