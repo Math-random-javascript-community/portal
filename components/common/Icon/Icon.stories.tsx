@@ -11,8 +11,8 @@ export default {
 
 const Template: Story<IconProps> = (args: IconProps) => <Icon {...args} />;
 
-export const DefaultIcon = Template.bind({});
-DefaultIcon.args = {
+export const GoogleIcon = Template.bind({});
+GoogleIcon.args = {
   iconType: IconTypes.Google,
   size: IconSizes.Large,
   text: 'Google large icon',

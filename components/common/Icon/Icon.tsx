@@ -41,13 +41,13 @@ const Wrapper = styled.div<WrapperProps>`
   }
 
   .iconSizeExtraSmall {
-    width: 7px;
-    height: 7px;
+    width: 16px;
+    height: 16px;
   }
 
   .iconSizeSmall {
-    width: 12px;
-    height: 12px;
+    width: 18px;
+    height: 18px;
   }
 
   .iconSizeMedium {
@@ -56,8 +56,8 @@ const Wrapper = styled.div<WrapperProps>`
   }
 
   .iconSizeLarge {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
   }
   
   &:hover {
@@ -75,6 +75,7 @@ const IconTextWrapper = styled.div`
   white-space: nowrap;
 
   &.iconText {
+    font-weight: 700;
     color: ${({theme}) => theme.icon.defaultColor};
   }
 
@@ -83,7 +84,7 @@ const IconTextWrapper = styled.div`
   }
 
   &.iconTextSizeExtraSmall {
-    font-size: 8px;
+    font-size: 10px;
   }
 
   &.iconTextSizeSmall {
