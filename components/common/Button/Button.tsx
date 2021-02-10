@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-
-type StyledButtonProps = {
-  isRounded?: boolean;
-  type?: 'button' | 'submit' | 'reset';
-};
+import { StyledButtonProps, ButtonProps } from './Button.interface';
 
 const StyledButton = styled.button<StyledButtonProps>`
   display: flex;
@@ -37,10 +33,6 @@ const StyledButton = styled.button<StyledButtonProps>`
 StyledButton.defaultProps = {
   isRounded: false,
   type: 'button',
-};
-
-export type ButtonProps = StyledButtonProps & {
-  text: string;
 };
 
 export const Button: React.FC<ButtonProps> = ({ text, ...props }: ButtonProps) => (
