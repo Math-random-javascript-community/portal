@@ -42,6 +42,9 @@ const DEFAULT_THEME: DefaultTheme = {
   text: {
     defaultColor: COLORS.crystalWhite,
   },
+  customLink: {
+    defaultColor: COLORS.deepSea80
+  }
 };
 
 const UBUNTU_FONT_URL =
