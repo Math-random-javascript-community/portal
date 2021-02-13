@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { ButtonProps } from './Button';
+import { ButtonProps } from './Button.interface';
 import { PrimaryButton } from './PrimaryButton';
 import { SecondaryButton } from './SecondaryButton';
 import { StandardButton } from './StandardButton';

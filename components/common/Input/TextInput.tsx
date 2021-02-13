@@ -1,9 +1,8 @@
-import { FC, InputHTMLAttributes } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
+import { StyledTextInputProps, TextInputProps } from './TextInput.interface';
 
-interface StyledInputProps extends InputHTMLAttributes<HTMLInputElement> {};
-
-const StyledInput = styled.input<StyledInputProps>`
+const StyledTextInput = styled.input<StyledTextInputProps>`
   border: 1px solid ${({ theme }) => theme.textInput.defaultBorderColor};
   border-radius: 4px;
   padding: 8px 12px;
@@ -22,11 +21,11 @@ const StyledInput = styled.input<StyledInputProps>`
   }
 `;
 
-const StyledInputWithError = styled(StyledInput)`
+const StyledTextInputWithError = styled(StyledTextInput)`
   border-color: ${({ theme }) => theme.textInput.errorBorderColor};
 `;
 
-const ValidStyledInput = styled(StyledInput)`
+const ValidStyledTextInput = styled(StyledTextInput)`
   border-color: ${({ theme }) => theme.textInput.validBorderColor};
 `;
 
@@ -75,18 +74,7 @@ const ErrorTextContainer = styled(BottomTextContainer)`
   color: ${({ theme }) => theme.textInput.errorTextColor};
 `;
 
-export interface TextInputProps extends StyledInputProps {
-  value: string;
-  name: string;
-  label?: string;
-  isRequired?: boolean;
-  bottomText?: string;
-  hasError?: boolean;
-  hasValidValue?: boolean;
-  requiredMessage?: string;
-};
-
-export const TextInput: FC<TextInputProps> = ({ label, isRequired, bottomText, hasError, hasValidValue, requiredMessage, ...props }) => (
+export const TextInput: FC<TextInputProps> = ({ label, isRequired, bottomText, hasError, hasValidValue, requiredMessage, ...props }: TextInputProps) => (
   <Container>
     <Label>
       {label && (
@@ -94,9 +82,9 @@ export const TextInput: FC<TextInputProps> = ({ label, isRequired, bottomText, h
           {label}{isRequired && <RequiredSignText>*</RequiredSignText>}
         </LabelTextContainer>
       )}
-      {hasError && <StyledInputWithError {...props} />}
-      {!hasError && hasValidValue && <ValidStyledInput {...props} />}
-      {!hasError && !hasValidValue && <StyledInput {...props} />}
+      {hasError && <StyledTextInputWithError {...props} />}
+      {!hasError && hasValidValue && <ValidStyledTextInput {...props} />}
+      {!hasError && !hasValidValue && <StyledTextInput {...props} />}
     </Label>
     {bottomText && (
       <BottomTextContainer>

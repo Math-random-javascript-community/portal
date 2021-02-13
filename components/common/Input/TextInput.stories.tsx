@@ -1,5 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { TextInput, TextInputProps } from './TextInput';
+import { TextInputProps } from './TextInput.interface';
+import { TextInput } from './TextInput';
 
 export default {
   title: 'Components/TextInput',
