@@ -1,0 +1,1 @@
+export type VideoSize = 'small' | 'big';

@@ -44,6 +44,9 @@ const DEFAULT_THEME: DefaultTheme = {
   },
   customLink: {
     defaultColor: COLORS.deepSea80
+  },
+  tag: {
+    defaultColor: COLORS.toxicGreen
   }
 };
 

@@ -1,16 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import TextProps from './TextProps';
+import { TextProps } from './TextProps';
 
 const Text = styled.span`
-    font-family: Ubuntu, sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 10px;
     line-height: 11px;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: ${(props) => props.color ? props.color : 'inherit'};
+    color: ${({ theme, color }) => color ? color : theme.text.defaultColor};
 `;
 
 const TextPreTitle = (props: TextProps) => (
@@ -18,5 +17,3 @@ const TextPreTitle = (props: TextProps) => (
 );
 
 export default TextPreTitle;
-
-

@@ -1,5 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import {TagsList, TagsListProps} from './TagsList';
+import { TagsListProps } from './TagListProps';
+import { TagsList } from './TagsList';
 
 export default {
   title: 'Components/TagsList',

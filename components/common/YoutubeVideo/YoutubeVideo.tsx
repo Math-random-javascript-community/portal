@@ -1,11 +1,6 @@
 import React from 'react';
-
-type VideoSize = 'small' | 'big';
-
-export type YoutubeVideoProps = {
-  url: string,
-  size: VideoSize
-}
+import { VideoSize } from './VideoSize';
+import { YoutubeVideoProps } from './YoutubeVideoProps';
 
 function getYoutubeVideoId(url: string): string {
   return url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
@@ -13,22 +8,22 @@ function getYoutubeVideoId(url: string): string {
 
 function getVideoSize(size: VideoSize): { width: string, height: string } {
   switch (size) {
-  case 'small':
-    return ({
-      width: '276px',
-      height: '200px'
-    });
-  case 'big':
-  default:
-    return ({
-      width: '506px',
-      height: '317px'
-    }
-    );
+    case 'small':
+      return ({
+        width: '276px',
+        height: '200px'
+      });
+    case 'big':
+    default:
+      return ({
+        width: '506px',
+        height: '317px'
+      }
+      );
   }
 }
 
-const YoutubeVideo = ({url, size}: YoutubeVideoProps) => {
+const YoutubeVideo = ({ url, size }: YoutubeVideoProps) => {
   const videoId = getYoutubeVideoId(url);
   return (
     <>

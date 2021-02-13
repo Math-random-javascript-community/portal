@@ -1,5 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import YoutubeVideo, { YoutubeVideoProps} from './YoutubeVideo';
+import YoutubeVideo from './YoutubeVideo';
+import { YoutubeVideoProps } from './YoutubeVideoProps';
 
 export default {
   title: 'Components/YoutubeVideo',

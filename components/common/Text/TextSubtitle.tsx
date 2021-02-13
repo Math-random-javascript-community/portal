@@ -1,15 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import TextProps from './TextProps';
+import { TextProps } from './TextProps';
 
 const Text = styled.span`
-    font-family: Ubuntu, sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 24px;
     line-height: 28px;
     letter-spacing: -0.02em;
-    color: ${(props) => props.color ? props.color : 'inherit'};
+    color: ${({ theme, color }) => color ? color : theme.text.defaultColor};
 `;
 
 const TextSubtitle = (props: TextProps) => (
@@ -17,5 +16,3 @@ const TextSubtitle = (props: TextProps) => (
 );
 
 export default TextSubtitle;
-
-

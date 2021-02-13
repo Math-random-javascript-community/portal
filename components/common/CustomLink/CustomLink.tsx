@@ -1,10 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-export type CustomLinkProps = {
-  url: string,
-  title?: string
-}
+import { CustomLinkProps } from './CustomLinkProps';
 
 const StyledCustomLink = styled.a`
     font-family: Ubuntu, sans-serif;
@@ -16,7 +12,7 @@ const StyledCustomLink = styled.a`
     color: ${({ theme }) => theme.customLink.defaultColor};
 `;
 
-const CustomLink = ({url, title = url}: CustomLinkProps) => (
+const CustomLink = ({ url, title = url }: CustomLinkProps) => (
   <StyledCustomLink href={url} target="_blank">
     {title}
   </StyledCustomLink>
