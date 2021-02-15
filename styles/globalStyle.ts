@@ -65,7 +65,7 @@ const fontStyle = css`
 `;
 
 const bodyStyle = css`
-  ${fontStyle};
+  ${fontStyle}
 
   font-family: Ubuntu, sans-serif;
 `;

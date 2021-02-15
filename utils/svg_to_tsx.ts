@@ -1,14 +1,12 @@
-import fs from 'fs';
+import fs from 'fs'; // @TODO: use svg library
 import path from 'path';
 
 const inDir = '/public/icon/in';
 const outDir = '/public/icon/out';
 
 const imgTemplate =
-`type PropsType = {
-    className?: string
-  };
-export default function __name__({className}: PropsType) {
+`import {  IconImgProps } from '../Icon.interfaces';
+export default function __name__({className}: IconImgProps) {
   return (
     __svg__
   );

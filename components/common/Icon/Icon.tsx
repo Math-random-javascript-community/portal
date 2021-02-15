@@ -1,19 +1,17 @@
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
-import IconTypes from './IconTypes';
-import IconSizes from './IconSizes';
+import {IconTypes} from './IconTypes';
+import {IconSizes} from './IconSizes';
 import React from 'react';
-import {IconProps} from './IconProps';
+import {IconProps, ImgComponentProps} from './Icon.interfaces';
 
 interface WrapperProps {
-  isTextOnLeft: boolean;
   iconWidth?: number;
   iconHeight?: number;
 }
 
 const Wrapper = styled.div<WrapperProps>`
   display: flex;
-  flex-direction: ${props => props.isTextOnLeft == true ? 'row-reverse' : 'row'};
   flex-wrap: nowrap;
   align-items: center;
 
@@ -69,63 +67,17 @@ const Wrapper = styled.div<WrapperProps>`
   }
 `;
 
-const IconTextWrapper = styled.div`
-  color: ${({theme}) => theme.icon.activeColor};
-  font-size: 16px;
-  white-space: nowrap;
-
-  &.iconText {
-    font-weight: 700;
-    color: ${({theme}) => theme.icon.defaultColor};
-  }
-
-  &.iconTextActive {
-    color: ${({theme}) => theme.icon.activeColor};
-  }
-
-  &.iconTextSizeExtraSmall {
-    font-size: 10px;
-  }
-
-  &.iconTextSizeSmall {
-    font-size: 10px;
-  }
-
-  &.iconTextSizeMedium {
-    font-size: 16px;
-  }
-
-  &.iconTextSizeLarge {
-    font-size: 24px;
-  }
-`;
-
-const Spacer = styled.div`
-  width: 2px;
-`;
-
-interface ImgComponentProps {
-  className: string;
-}
-
 const getImgComponent = (iconType: IconTypes): React.ComponentType<ImgComponentProps> =>
   dynamic(() => import(`./inlineImages/${iconType}`), {ssr: true});
 
-function Icon({iconType, className, text, width, height, size = IconSizes.Medium, isActive = false, isTextOnLeft = false}: IconProps) {
+export function Icon({iconType, className, width, height, size = IconSizes.Medium, isActive = false}: IconProps) {
   const activeStyle = isActive === true ? 'Active' : 'Inactive';
   const iconSizeStyle = (!width && !height) ? size : '';
   const ImgComponent: React.ComponentType<ImgComponentProps> = getImgComponent(iconType);
 
   return (
-    <Wrapper iconWidth={width} iconHeight={height} className={className} isTextOnLeft={isTextOnLeft}>
+    <Wrapper iconWidth={width} iconHeight={height} className={className}>
       <ImgComponent className={`icon icon${activeStyle} iconSize${iconSizeStyle}`}/>
-      <Spacer/>
-      {text
-        ? <IconTextWrapper className={`iconText iconText${activeStyle} iconTextSize${size}`}>{text}</IconTextWrapper>
-        : null
-      }
     </Wrapper>
   );
 }
-
-export default Icon;

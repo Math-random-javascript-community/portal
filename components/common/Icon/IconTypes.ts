@@ -1,4 +1,4 @@
-enum IconTypes {
+export enum IconTypes {
   'AttachFile' = 'AttachFile',
   'Cross' = 'Cross',
   'Check' = 'Check',
@@ -17,7 +17,5 @@ enum IconTypes {
   'Telegram' = 'Telegram',
   'Time' = 'Time',
   'Twitter' = 'Twitter',
-  'Youtube' = 'Youtube',
+  'Youtube' = 'Youtube'
 }
-
-export default IconTypes;
