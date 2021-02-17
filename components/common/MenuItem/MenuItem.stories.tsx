@@ -11,6 +11,6 @@ const Template: Story<MenuItemProps> = (args) => <MenuItem {...args} />;
 
 export const Item = Template.bind({});
 Item.args = {
-  title: 'Events',
+  text: 'Events',
   active: false
 };

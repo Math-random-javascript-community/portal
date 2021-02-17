@@ -20,6 +20,6 @@ const StyledMenuItem = styled.div<StyledMenuItemProps>`
     border-radius: 4px;
   }
 `;
-export const MenuItem = ({ title, active = false }: MenuItemProps) => (
-  <StyledMenuItem active={active}>{title}</StyledMenuItem>
+export const MenuItem = ({ text, active = false }: MenuItemProps) => (
+  <StyledMenuItem active={active}>{text}</StyledMenuItem>
 );

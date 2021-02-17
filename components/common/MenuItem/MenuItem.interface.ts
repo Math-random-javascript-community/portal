@@ -3,5 +3,5 @@ export interface StyledMenuItemProps {
 }
 
 export interface MenuItemProps extends StyledMenuItemProps {
-  title: string;
+  text: string;
 }
