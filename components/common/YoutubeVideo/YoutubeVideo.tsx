@@ -1,25 +1,24 @@
 import React from 'react';
 import { VideoSize } from './VideoSize';
-import { YoutubeVideoProps } from './YoutubeVideoProps';
+import { YoutubeVideoProps } from './YoutubeVideo.interface';
 
 function getYoutubeVideoId(url: string): string {
   return url.split(/v\/|v=|youtu\.be\//)[1].split(/[?&]/)[0];
 }
 
-function getVideoSize(size: VideoSize): { width: string, height: string } {
+function getVideoSize(size: VideoSize): { width: string; height: string } {
   switch (size) {
     case 'small':
-      return ({
+      return {
         width: '276px',
         height: '200px'
-      });
+      };
     case 'big':
     default:
-      return ({
+      return {
         width: '506px',
         height: '317px'
-      }
-      );
+      };
   }
 }
 
@@ -32,7 +31,8 @@ const YoutubeVideo = ({ url, size }: YoutubeVideoProps) => {
         src={`https://www.youtube.com/embed/${videoId}`}
         frameBorder="0"
         allow="autoplay; encrypted-media"
-        allowFullScreen></iframe>
+        allowFullScreen
+      ></iframe>
     </>
   );
 };

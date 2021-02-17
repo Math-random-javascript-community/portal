@@ -1,6 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import TextBody from './TextBody';
-import { TextProps } from './TextProps';
+import { TextProps } from './Text.interface';
 import TextBold from './TextBold';
 import TextButton from './TextButton';
 import TextH1 from './TextH1';
@@ -12,6 +12,7 @@ import TextSubtitle from './TextSubtitle';
 
 export default {
   title: 'Components/Text',
+  argTypes: { color: { control: 'color' } }
 } as Meta;
 
 export const Body: Story<TextProps> = (args: TextProps) => <TextBody {...args} />;
