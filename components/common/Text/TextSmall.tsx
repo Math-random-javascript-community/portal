@@ -1,15 +1,14 @@
-import React from 'react';
 import styled from 'styled-components';
+import Text from './Text';
 import { TextProps } from './Text.interface';
 
-const Text = styled.span`
-  font-style: normal;
-  font-weight: normal;
+const StyledTextSmall = styled(Text)`
   font-size: 14px;
   line-height: 16px;
-  color: ${({ theme, color }) => (color ? color : theme.text.defaultColor)};
 `;
 
-const TextSmall = (props: TextProps) => <Text color={props.color}>{props.children}</Text>;
+const TextSmall = (props: TextProps) => (
+  <StyledTextSmall color={props.color}>{props.children}</StyledTextSmall>
+);
 
 export default TextSmall;

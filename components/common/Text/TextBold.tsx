@@ -1,15 +1,13 @@
-import React from 'react';
 import styled from 'styled-components';
+import Text from './Text';
 import { TextProps } from './Text.interface';
 
-const Text = styled.span`
-  font-style: normal;
+const StyledTextBold = styled(Text)`
   font-weight: bold;
-  font-size: 16px;
-  line-height: 22px;
-  color: ${({ theme, color }) => (color ? color : theme.text.defaultColor)};
 `;
 
-const TextBold = (props: TextProps) => <Text color={props.color}>{props.children}</Text>;
+const TextBold = (props: TextProps) => (
+  <StyledTextBold color={props.color}>{props.children}</StyledTextBold>
+);
 
 export default TextBold;

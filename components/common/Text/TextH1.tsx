@@ -1,16 +1,18 @@
-import React from 'react';
 import styled from 'styled-components';
+import Text from './Text';
 import { TextProps } from './Text.interface';
 
-const Text = styled.h1`
-  font-style: normal;
+const StyledTextH1 = styled(Text).attrs({
+  as: 'h1'
+})`
   font-weight: bold;
   font-size: 64px;
   line-height: 74px;
   letter-spacing: -0.02em;
-  color: ${({ theme, color }) => (color ? color : theme.text.defaultColor)};
 `;
 
-const TextH1 = (props: TextProps) => <Text color={props.color}>{props.children}</Text>;
+const TextH1 = (props: TextProps) => (
+  <StyledTextH1 color={props.color}>{props.children}</StyledTextH1>
+);
 
 export default TextH1;

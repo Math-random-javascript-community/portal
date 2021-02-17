@@ -1,16 +1,16 @@
-import React from 'react';
 import styled from 'styled-components';
+import Text from './Text';
 import { TextProps } from './Text.interface';
 
-const Text = styled.span`
-  font-style: normal;
+const StyledTextSubtitle = styled(Text)`
   font-weight: bold;
   font-size: 24px;
   line-height: 28px;
   letter-spacing: -0.02em;
-  color: ${({ theme, color }) => (color ? color : theme.text.defaultColor)};
 `;
 
-const TextSubtitle = (props: TextProps) => <Text color={props.color}>{props.children}</Text>;
+const TextSubtitle = (props: TextProps) => (
+  <StyledTextSubtitle color={props.color}>{props.children}</StyledTextSubtitle>
+);
 
 export default TextSubtitle;

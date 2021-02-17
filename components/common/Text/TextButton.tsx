@@ -1,17 +1,17 @@
-import React from 'react';
 import styled from 'styled-components';
+import Text from './Text';
 import { TextProps } from './Text.interface';
 
-const Text = styled.span`
-  font-style: normal;
+const StyledTextButton = styled(Text)`
   font-weight: bold;
   font-size: 10px;
   line-height: 11px;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: ${({ theme, color }) => (color ? color : theme.text.defaultColor)};
 `;
 
-const TextButton = (props: TextProps) => <Text color={props.color}>{props.children}</Text>;
+const TextButton = (props: TextProps) => (
+  <StyledTextButton color={props.color}>{props.children}</StyledTextButton>
+);
 
 export default TextButton;
