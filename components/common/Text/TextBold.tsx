@@ -4,6 +4,8 @@ import { TextProps } from './Text.interface';
 
 const StyledTextBold = styled(Text)`
   font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
 `;
 
 const TextBold = (props: TextProps) => (
