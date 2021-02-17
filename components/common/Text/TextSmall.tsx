@@ -3,7 +3,6 @@ import Text from './Text';
 import { TextProps } from './Text.interface';
 
 const StyledTextSmall = styled(Text)`
-  font-weight: normal;
   font-size: 14px;
   line-height: 16px;
 `;
