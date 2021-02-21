@@ -1,0 +1,11 @@
+{
+  "icon": false,
+  "expandProps": false,
+  "ignoreExisting": true,
+  "ext": "tsx",
+  "typescript": true,
+  "svgo": false,
+  "svgProps": { 
+      "className": "{className}"
+  }
+}

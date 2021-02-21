@@ -15,27 +15,22 @@ const Wrapper = styled.div<WrapperProps>`
   flex-wrap: nowrap;
   align-items: center;
 
-  .strokeImg {
-    stroke: ${({theme}) => theme.icon.defaultColor};
-    fill: none;
-  }
-
-  .fillImg {
-    fill: ${({theme}) => theme.icon.defaultColor};
-  }
-
   .icon {
     width: ${props => props.iconWidth || '24'}px;
     height: ${props => props.iconHeight || '24'}px;
   }
-
-  .fillImg.iconActive {
-    fill: ${({theme}) => theme.icon.activeColor};
+  .icon [stroke] {
+    stroke: ${({theme}) => theme.icon.defaultColor};
+  } 
+  .icon [fill] {
+    fill: ${({theme}) => theme.icon.defaultColor};
   }
 
-  .strokeImg.iconActive {
+  .iconActive path[stroke] {
     stroke: ${({theme}) => theme.icon.activeColor};
-    fill: none;
+  }
+  .iconActive path[fill] {
+    fill: ${({theme}) => theme.icon.activeColor};
   }
 
   .iconSizeExtraSmall {
@@ -51,6 +46,7 @@ const Wrapper = styled.div<WrapperProps>`
   .iconSizeMedium {
     width: 24px;
     height: 24px;
+    viewBox: 0 0 24px 24px;
   }
 
   .iconSizeLarge {

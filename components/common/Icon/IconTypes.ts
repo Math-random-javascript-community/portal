@@ -5,7 +5,7 @@ export enum IconTypes {
   'Checked' = 'Checked',
   'Date' = 'Date',
   'Dropdown' = 'Dropdown',
-  'FB' = 'FB',
+  'Facebook' = 'Fb',
   'GitHub' = 'GitHub',
   'Google' = 'Google',
   'Language' = 'Language',
