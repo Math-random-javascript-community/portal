@@ -27,21 +27,21 @@ jobs:
       env:
         CI: true
 
-  deploy:
-    needs: [build]
-    runs-on: ubuntu-latest
+#   deploy:
+#     needs: [build]
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: SSH and deploy node app
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        port: 22
-        script: |
-          cd ~/portal
-          git pull origin main
-          npm install
-          npm run build
-          pm2 restart math-random-portal
+#     steps:
+#     - name: SSH and deploy node app
+#       uses: appleboy/ssh-action@master
+#       with:
+#         host: ${{ secrets.SSH_HOST }}
+#         username: ${{ secrets.SSH_USERNAME }}
+#         key: ${{ secrets.SSH_KEY }}
+#         port: 22
+#         script: |
+#           cd ~/portal
+#           git pull origin main
+#           npm install
+#           npm run build
+#           pm2 restart math-random-portal
