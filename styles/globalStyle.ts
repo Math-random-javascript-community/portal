@@ -10,11 +10,15 @@ const COLORS = {
   deepSea80: 'rgba(6, 135, 255, 0.8)',
   graphiteGrey: '#333333',
   crystalWhite: '#ffffff',
+  charcoalBlack: '#1A1A1A',
   brightGrey: 'rgba(255, 255, 255, 0.6)',
   graphite30: 'rgba(51, 51, 51, 0.3)',
 };
 
 const DEFAULT_THEME: DefaultTheme = {
+  body: {
+    backgroundColor: COLORS.charcoalBlack,
+  },
   button: {
     primaryBackground: COLORS.lemonSun,
     primaryColor: COLORS.black,
@@ -28,6 +32,10 @@ const DEFAULT_THEME: DefaultTheme = {
     standardBorderColor: COLORS.crystalWhite,
     standardBackground: COLORS.graphiteGrey,
     standardColor: COLORS.crystalWhite,
+  },
+  icon: {
+    defaultColor: COLORS.crystalWhite,
+    activeColor: COLORS.lemonSun,
   },
   textInput: {
     defaultBorderColor: COLORS.crystalWhite,
