@@ -3,7 +3,7 @@ name: Node Github CI
 on:
   push:
     branches:
-      - main
+      - AlexandraMor8-patch-1
 
 jobs:
   build:
