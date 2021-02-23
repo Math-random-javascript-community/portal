@@ -11,13 +11,17 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "fs": "0.0.1-security",
+    "airtable": "^0.10.1",
+    "@airtable/blocks": "^1.2.1",
+    "date-fns": "^2.16.1",
+    "gray-matter": "^4.0.2",
     "next": "10.0.1",
-    "path": "^0.12.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "styled-components": "^5.2.1",
-    "styled-normalize": "^8.0.7"
+    "styled-normalize": "^8.0.7",
+    "remark": "^13.0.0",
+    "remark-html": "^13.0.1",
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -32,6 +36,7 @@
     "@types/styled-components": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
+
     "babel-loader": "^8.2.2",
     "commitizen": "^4.2.2",
     "eslint": "^7.13.0",

@@ -1,58 +1,98 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import React from 'react';
+import styled from 'styled-components';
+import {GetStaticProps} from 'next';
+import Link from 'next/link';
+import {REVALIDATE_TIME} from '../constants/main';
+import {DigestType, FilterType, EventType} from '../interfaces';
 
-export default function Home() {
+import Layout from '../components/Layout/Layout';
+import {DigestsList} from '../components/Digests';
+import {getDigestList} from '../lib/digests';
+import {getPastEventList, getUpcomingEventList} from '../lib/events';
+import UpcomingEvents from '../components/Events/UpcomingEvents';
+import PastEvents from '../components/Events/PastEvents';
+import {ErrorsContainer, Title} from '../components/Blocks';
+import Subscribe from '../components/Subscription/Subscribe';
+
+const Wrapper = styled.div`
+  display: flex;
+`;
+const TopWrapper = styled.div`
+  margin-top: 20px;
+  display: flow;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+const LastDigestWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const LastDigestTitle = styled(Title)`
+  align-self: flex-start;
+`;
+const History = styled.div`
+  align-self: flex-end;
+  font-size: 16px;
+  color: #FFE400;
+`;
+const SubscribeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+`;
+
+type HomeProps = {
+  digestList: DigestType[]
+  filtersList: FilterType[]
+  upcomingEventList: EventType[]
+  pastEventList: EventType[]
+  errors: string
+}
+
+export default function Home(props: HomeProps) {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a href="https://github.com/vercel/next.js/tree/master/examples" className={styles.card}>
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+    <Wrapper>
+      <Layout isHome={true}>
+        {props.errors && (<ErrorsContainer>Error loading data: {props.errors}</ErrorsContainer>)}
+        <TopWrapper>
+          <LastDigestWrapper>
+            <LastDigestTitle>Last digest</LastDigestTitle>
+            <DigestsList data={props.digestList} errors={props.errors}/>
+          </LastDigestWrapper>
+          <SubscribeWrapper>
+            <History>
+              <Link href={"/history"}>History</Link>
+            </History>
+            <Subscribe/>
+          </SubscribeWrapper>
+        </TopWrapper>
+        <UpcomingEvents eventList={props.upcomingEventList} errors={props.errors}/>
+        <PastEvents eventList={props.pastEventList} errors={props.errors}/>
+      </Layout>
+    </Wrapper>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const digestList = await getDigestList(1);
+
+    const upcomingEventList = await getUpcomingEventList(3);
+    const pastEventList = await getPastEventList(6);
+
+    return {
+      props: {
+        digestList: digestList ?? [],
+        upcomingEventList: upcomingEventList ?? [],
+        pastEventList: pastEventList ?? []
+      },
+      revalidate: REVALIDATE_TIME,
+    };
+  } catch (err) {
+    return {
+      props: {
+        errors: err.message
+      }
+    };
+  }
+};
