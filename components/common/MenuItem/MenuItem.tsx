@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { MenuItemProps, StyledMenuItemProps } from './MenuItem.interface';
+import { device } from '../../../styles/mediaQueries';
 
 const StyledMenuItem = styled.div<StyledMenuItemProps>`
   text-decoration: none;
@@ -15,9 +16,9 @@ const StyledMenuItem = styled.div<StyledMenuItemProps>`
   font-size: 16px;
   color: ${({ active, theme }) => (active ? theme.menu.activeColor : theme.text.defaultColor)};
 
-  &:hover {
-    background: #333333;
-    border-radius: 4px;
+  @media ${device.tablet} {
+    background: ${({ active }) => (active ? `#333333` : ``)};
+    border-radius: ${({ active }) => (active ? `#333333` : `none`)};
   }
 `;
 export const MenuItem = ({ text, active = false }: MenuItemProps) => (
