@@ -58,6 +58,7 @@ const DEFAULT_THEME: DefaultTheme = {
   },
   menu: {
     activeColor: COLORS.lemonSun,
+    activeBackgroundColor: COLORS.graphiteGrey
   }
 };
 

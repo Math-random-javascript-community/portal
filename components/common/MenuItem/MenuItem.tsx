@@ -17,8 +17,8 @@ const StyledMenuItem = styled.div<StyledMenuItemProps>`
   color: ${({ active, theme }) => (active ? theme.menu.activeColor : theme.text.defaultColor)};
 
   @media ${device.tablet} {
-    background: ${({ active }) => (active ? `#333333` : ``)};
-    border-radius: ${({ active }) => (active ? `#333333` : `none`)};
+    background: ${({ active, theme }) => (active ? theme.menu.activeBackgroundColor : ``)};
+    border-radius: ${({ active }) => (active ? `4px` : `unset`)};
   }
 `;
 export const MenuItem = ({ text, active = false }: MenuItemProps) => (
