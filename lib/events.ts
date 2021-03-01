@@ -19,7 +19,7 @@ type RelatedStorageType = {
  *
  * @param records
  */
-const getMappedRecords = async function (records: RecordType[]) {
+const getMappedRecords = async function (records: readonly RecordType[]) {
   const relatedTables = [
     RELATED_TALKS
   ];
@@ -76,7 +76,7 @@ const joinTalks = function (keys: string[], relatedStorage: RelatedStorageType):
  * @param whereFilter object
  */
 async function fetchBaseTable(whereFilter: object) {
-  const records: RecordType[] = await baseTable.select(whereFilter).all();
+  const records: readonly RecordType[] = await baseTable.select(whereFilter).all();
 
   if (!records) {
     return [];

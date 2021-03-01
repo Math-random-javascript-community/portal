@@ -1,6 +1,5 @@
 import React, {ReactNode} from 'react';
 import styled from 'styled-components';
-import {FiltersLayout} from '../Layout';
 import {SITE_TITLE} from '../../constants/main';
 import Link from 'next/link';
 
@@ -99,7 +98,7 @@ type Props = {
   isHome: boolean
 }
 
-const Header = ({isHome}: Props) => (
+const Header = ({isHome=false}: Props) => (
   <header>
     <Wrapper>
       <MenuButton className="mainMenuBtn"><img src={'/MenuActive.png'} alt={'Menu'}/></MenuButton>
@@ -129,7 +128,6 @@ const Header = ({isHome}: Props) => (
       </TopMenu>
     </Wrapper>
     <Title>Topics and events by technology</Title>
-    <FiltersLayout/>
   </header>
 );
 

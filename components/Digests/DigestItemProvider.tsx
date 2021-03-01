@@ -1,7 +1,7 @@
 import React, {useContext, createContext, ReactNode} from 'react';
 import {DigestType} from '../../interfaces';
 
-const DigestContext = createContext(null);
+const DigestContext = createContext({} as DigestType);
 
 const DigestProvider = ({children, data}: { children?: ReactNode, data: DigestType }) => (
   <DigestContext.Provider value={data}>

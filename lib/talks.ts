@@ -1,4 +1,10 @@
-import getDataBase, {getRelatedRecordsByKeys, getAllRelatedKeys, joinRelatedTable, RecordType} from './db';
+import getDataBase, {
+  getRelatedRecordsByKeys,
+  getAllRelatedKeys,
+  joinRelatedTable,
+  RecordType,
+  MappedRecords
+} from './db';
 import {AuthorType, TalkType} from '../interfaces';
 import {getAuthorsListByKeys} from './authors';
 
@@ -19,7 +25,7 @@ type RelatedStorageType = {
  *
  * @param records
  */
-const getMappedRecords = async function (records: RecordType[]) {
+const getMappedRecords = async function (records: readonly RecordType[]) {
   const relatedTables = [
     RELATED_AUTHORS
   ];
@@ -80,13 +86,13 @@ export async function getTalk(id: number) {
     filterByFormula: `({Id} = ${id})`,
     maxRecords: 1
   };
-  const records: RecordType[]  = await baseTable.select(whereFilter).all();
+  const records: readonly RecordType[]  = await baseTable.select(whereFilter).all();
 
   if (!records) {
     return {};
   }
 
-  const mappedRow: TalkType[] = await getMappedRecords(records);
+  const mappedRow: readonly TalkType[] = await getMappedRecords(records);
 
   return mappedRow ? mappedRow[0] : {};
 }

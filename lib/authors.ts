@@ -2,15 +2,15 @@ import getDataBase, {getRelatedRecordsByKeys, RecordType} from './db';
 import {AuthorType} from '../interfaces';
 
 const base = getDataBase();
-const baseTable = base('Authors');
+const baseTable: Airtable.Table<any> = base('Authors');
 
 /**
  * Get mapped records
  * 
  * @param records
  */
-const getMappedRecords = function (records): AuthorType[] {
-  return records.map(record => mapRow(record));
+const getMappedRecords = function (records: readonly RecordType[]): AuthorType[] {
+  return records.map((record: RecordType) => mapRow(record));
 };
 
 /**
@@ -48,13 +48,13 @@ export async function getAuthor(id: number) {
     filterByFormula: `({Id} = ${id})`,
     maxRecords: 1
   };
-  const records: object[] = await baseTable.select(whereFilter).all();
+  const records: readonly RecordType[] = await baseTable.select(whereFilter).all();
 
   if (!records) {
     return {};
   }
 
-  const mappedRow: AuthorType[] = await getMappedRecords(records);
+  const mappedRow: readonly AuthorType[] = await getMappedRecords(records);
 
   return mappedRow && mappedRow[0] ? mappedRow[0] : {};
 }

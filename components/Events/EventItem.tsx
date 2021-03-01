@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import {EventType} from '../../interfaces';
-import {EventDate, TopicButton} from '../Blocks';
+import {EventDate} from '../Blocks';
 import {useEvent} from './EventItemProvider';
 
 const Wrapper = styled.div`
@@ -20,16 +20,21 @@ const StyledContent = styled.div`
   color: rgba(255, 255, 255, 0.6);
   margin-top: 20px;
 `;
-const StyledButton = styled(TopicButton)`
-  margin-top: 10px;
-`;
-const StatusWrapper = styled.div`
+
+interface StatusWrapperProps {
+  type: string;
+}
+const StatusWrapper = styled.div<StatusWrapperProps>`
   width: 100px;
   display: flex;
   align-items: center;
   color: ${props => props.type == 'past' ? 'rgba(255, 255, 255, 0.6)' : 'inherit'};
 `;
-const DateWrapper = styled.div`
+
+interface DateWrapperProps {
+  type: string;
+}
+const DateWrapper = styled.div<DateWrapperProps>`
   width: 220px;
   display: flex;
   align-items: center;
@@ -41,11 +46,12 @@ const StyledIcon = styled.img`
   width: 21px;
 `;
 
-type itemProps = {
-  isLinked?: boolean,
-  type: string
+interface EventItem {
+  isLinked?: boolean;
+  type: string;
 }
-const EventItem = ({isLinked, type}: itemProps) => {
+
+const EventItem = ({isLinked, type}: EventItem) => {
   const item: EventType = useEvent();
   return (
     <Wrapper>
@@ -77,13 +83,11 @@ const EventItem = ({isLinked, type}: itemProps) => {
       )}
 
       {type == 'upcoming' && (
-        <StyledButton primary onClick={() => alert('Registering')}>Register</StyledButton>
+        <a onClick={() => alert('Registering')}>Register</a>
       )}
       {type == 'past' && (
         <Link href={`/events/${item.Id}`}>
-          <a>
-            <StyledButton>Details</StyledButton>
-          </a>
+          <a>Details</a>
         </Link>
       )}
     </Wrapper>

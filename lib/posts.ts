@@ -1,4 +1,4 @@
-import getDataBase, {getRelatedRecordsByKeys} from './db';
+import getDataBase, {getRelatedRecordsByKeys, RecordType} from './db';
 import {PostType} from '../interfaces';
 
 const base = getDataBase();
@@ -9,7 +9,7 @@ const baseTable = base('Posts');
  *
  * @param records
  */
-const getMappedRecords = function (records): PostType[] {
+const getMappedRecords = function (records: readonly RecordType[]): PostType[] {
   return records.map(record => mapRow(record));
 };
 
@@ -18,7 +18,7 @@ const getMappedRecords = function (records): PostType[] {
  *
  * @param record
  */
-const mapRow = function (record): PostType {
+const mapRow = function (record: RecordType): PostType {
   const {id, fields} = record;
 
   return {
@@ -45,13 +45,13 @@ export async function getPost(id: number) {
     filterByFormula: `({Id} = ${id})`,
     maxRecords: 1
   };
-  const records: object[] = await baseTable.select(whereFilter).all();
+  const records: readonly RecordType[]  = await baseTable.select(whereFilter).all();
 
   if (!records) {
     return {};
   }
 
-  const mappedRow: PostType[] = await getMappedRecords(records);
+  const mappedRow: readonly PostType[] = await getMappedRecords(records);
 
   return mappedRow[0];
 }

@@ -5,6 +5,9 @@ type ParamsType = {
   timeOnly?: boolean
 }
 export default function TalkDate({dateString, timeOnly = false}: ParamsType) {
+  if (!dateString) {
+    return <></>;
+  }
   const date = parseISO(dateString);
   const formatDate = timeOnly
     ? 'hh:mm'

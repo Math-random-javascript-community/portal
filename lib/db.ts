@@ -8,7 +8,7 @@ export type RecordType = {
  * DB singleton
  */
 const Db = (function () {
-  let dbInstance;
+  let dbInstance: Airtable.Base;
 
   const createDbInstance = function () {
     return new Airtable({
@@ -26,7 +26,7 @@ const Db = (function () {
 /**
  * Get DB instance
  */
-const getDataBase = () => {
+const getDataBase = ():Airtable.Base => {
   return Db.getInstance();
 };
 
@@ -66,6 +66,14 @@ export function joinRelatedTable(keys: string[], relatedStorage: any): any[] {
   return keys.flat().map((key) => relatedStorage[key]);
 }
 
+export interface MappedRecords<T> {
+  (records: T): Array<T>;
+}
+
+interface RelatedRecord<T> {
+  [id: number]: T;
+}
+
 /**
  * Get related records by keys
  * 
@@ -74,14 +82,14 @@ export function joinRelatedTable(keys: string[], relatedStorage: any): any[] {
  * @param keys
  * @param limit
  */
-export async function getRelatedRecordsByKeys(baseTable, getMappedRecords, keys: string[], limit?: number) {
-  const result = {};
+export async function getRelatedRecordsByKeys(baseTable: Airtable.Table<any>, getMappedRecords, keys: string[], limit?: number) {
+  const result: RelatedRecord<any> = {};
 
   if (!keys || keys.length < 1) {
     return result;
   }
 
-  const whereFilter = {
+  const whereFilter: Airtable.SelectOptions = {
     filterByFormula: buildFilterByKeys(keys)
   };
 
@@ -89,7 +97,7 @@ export async function getRelatedRecordsByKeys(baseTable, getMappedRecords, keys:
     whereFilter['maxRecords'] = limit;
   }
 
-  const records: RecordType[] = await baseTable.select(whereFilter).all();
+  const records: Airtable.Records<RecordType[]>  = await baseTable.select(whereFilter).all();
 
   if (!records) {
     return result;
@@ -101,11 +109,15 @@ export async function getRelatedRecordsByKeys(baseTable, getMappedRecords, keys:
     return result;
   }
 
-  mappedRows.forEach((item) => {
+  mappedRows.forEach((item: {id: number}) => {
     result[item.id] = item;
   });
 
   return result;
+}
+
+interface RelatedKeys<T> {
+  [tableName: string]: T;
 }
 
 /**
@@ -114,9 +126,9 @@ export async function getRelatedRecordsByKeys(baseTable, getMappedRecords, keys:
  * @param relatedTables
  * @param records
  */
-export function getAllRelatedKeys(relatedTables: string[], records: RecordType[]) {
+export function getAllRelatedKeys(relatedTables: string[], records: readonly RecordType[]): RelatedKeys<any> {
 
-  const relatedKeys = {};
+  const relatedKeys: RelatedKeys<any> = {};
 
   if (!relatedTables || relatedTables.length < 1 || !records || records.length < 1) {
     return relatedKeys;

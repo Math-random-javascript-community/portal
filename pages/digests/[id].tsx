@@ -51,7 +51,12 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({params}) {
+interface staticPropsParams {
+  params: {
+    id: number;
+  }
+}
+export async function getStaticProps({params}: staticPropsParams) {
   try {
     const digestData = await getDigest(params.id);
 

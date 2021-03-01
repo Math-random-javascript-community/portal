@@ -19,7 +19,7 @@ type RelatedStorageType = {
  *
  * @param records
  */
-const getMappedRecords = async function (records: RecordType[]) {
+const getMappedRecords = async function (records: readonly RecordType[]) {
   const relatedTables = [
     RELATED_POSTS
   ];
@@ -73,13 +73,13 @@ const joinPosts = function (keys: string[], relatedStorage: RelatedStorageType):
  * @param whereFilter object
  */
 async function fetchBaseTable(whereFilter: object) {
-  const records: RecordType[] = await baseTable.select(whereFilter).all();
+  const records: readonly RecordType[] = await baseTable.select(whereFilter).all();
 
   if (!records) {
     return [];
   }
 
-  const mappedRecords: DigestType[] = await getMappedRecords(records);
+  const mappedRecords: readonly DigestType[] = await getMappedRecords(records);
 
   return mappedRecords ?? [];
 }
@@ -100,7 +100,7 @@ export async function getDigestList(limit: number) {
     ]
   };
 
-  const records: DigestType[] = await fetchBaseTable(whereFilter);
+  const records: readonly DigestType[] = await fetchBaseTable(whereFilter);
 
   return records ?? [];
 }
@@ -115,7 +115,7 @@ export async function getDigest(id: number) {
     filterByFormula: `({Id} = ${id})`,
     maxRecords: 1
   };
-  const records: DigestType[] = await fetchBaseTable(whereFilter);
+  const records: readonly DigestType[] = await fetchBaseTable(whereFilter);
 
   return (records && records[0]) ?? {};
 }
@@ -133,7 +133,7 @@ export async function getLastDigest() {
       }
     ]
   };
-  const records: DigestType[] = await fetchBaseTable(whereFilter);
+  const records: readonly DigestType[] = await fetchBaseTable(whereFilter);
 
   return (records && records[0]) ?? {};
 }

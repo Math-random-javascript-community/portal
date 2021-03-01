@@ -6,7 +6,6 @@ import {Footer} from '../Footer';
 import {Header} from '../Header';
 import {SITE_TITLE} from '../../constants/main';
 import styled from 'styled-components';
-import SubmitWebinar from '../Blocks/SubmitWebinar';
 
 type LayoutProps = {
   children?: ReactNode
@@ -25,10 +24,6 @@ const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-`;
-const BottomWrapper = styled.div`
-  width: 100%;
-  margin-top: 50px;
 `;
 
 const StyledBack = styled.div`
@@ -58,13 +53,6 @@ const Layout = ({children, isHome}: LayoutProps) => (
           </Link>
         </StyledBack>
       )}
-    </PageWrapper>
-    {isHome && (
-      <BottomWrapper>
-        <SubmitWebinar/>
-      </BottomWrapper>
-    )}
-    <PageWrapper>
       <Footer/>
     </PageWrapper>
   </Wrapper>
