@@ -9,7 +9,7 @@ const COLORS = {
   deepSea: '#064aff',
   deepSea80: 'rgba(6, 135, 255, 0.8)',
   graphiteGrey: '#333333',
-  crystalWhite: '#ffffff',
+  crystalWhite: 'rgba(255, 255, 255)',
   charcoalBlack: '#1A1A1A',
   brightGrey: 'rgba(255, 255, 255, 0.6)',
   graphite30: 'rgba(51, 51, 51, 0.3)',
@@ -32,6 +32,11 @@ const DEFAULT_THEME: DefaultTheme = {
     standardBorderColor: COLORS.crystalWhite,
     standardBackground: COLORS.graphiteGrey,
     standardColor: COLORS.crystalWhite,
+  },
+  dropdown: {
+    backgroundColor: COLORS.graphiteGrey,
+    borderColor: COLORS.brightGrey,
+    activeColor: COLORS.crystalWhite
   },
   icon: {
     defaultColor: COLORS.crystalWhite,
@@ -71,7 +76,7 @@ const fontStyle = css`
 `;
 
 const bodyStyle = css`
-  ${fontStyle}
+  ${fontStyle};
 
   font-family: Ubuntu, sans-serif;
 `;
