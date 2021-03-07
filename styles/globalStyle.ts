@@ -8,11 +8,12 @@ const COLORS = {
   lemonSun: '#ffe400',
   deepSea: '#064aff',
   deepSea80: 'rgba(6, 135, 255, 0.8)',
-  graphiteGrey: '#333333',
+  graphiteGrey: 'rgba(51, 51, 51, 1)',
   crystalWhite: '#ffffff',
   charcoalBlack: '#1A1A1A',
   brightGrey: 'rgba(255, 255, 255, 0.6)',
   graphite30: 'rgba(51, 51, 51, 0.3)',
+  graphiteLight: 'rgba(86, 86, 86, 1)',
 };
 
 const DEFAULT_THEME: DefaultTheme = {
@@ -36,6 +37,14 @@ const DEFAULT_THEME: DefaultTheme = {
   icon: {
     defaultColor: COLORS.crystalWhite,
     activeColor: COLORS.lemonSun,
+  },
+  image: {
+    backgroundColor: COLORS.graphiteGrey,
+    defaultColor: COLORS.graphiteLight,
+  },
+  avatar: {
+    backgroundColor: COLORS.graphiteGrey,
+    defaultColor: COLORS.graphiteLight,
   },
   textInput: {
     defaultBorderColor: COLORS.crystalWhite,
