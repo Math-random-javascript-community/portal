@@ -6,7 +6,7 @@ import {
   RelatedRecord,
   MappedRecords
 } from './db';
-import { EventType, TalkType } from '../interfaces';
+import { EventEntity, TalkEntity } from '../interfaces';
 import { getTalksListByKeys } from './talks';
 
 const base = getDataBase();
@@ -17,7 +17,7 @@ const baseTable = base('Events');
  */
 const RELATED_TALKS = 'Talks';
 
-interface EventFields extends DbRecord {
+interface EventRecord extends DbRecord {
   fields: {
     Id: number;
     Title: string;
@@ -32,31 +32,31 @@ interface EventFields extends DbRecord {
 }
 
 type RelatedStorageType = {
-  [RELATED_TALKS]: RelatedRecord<TalkType>;
+  [RELATED_TALKS]: RelatedRecord<TalkEntity>;
 };
 
 /**
- * Get mapped EventType rows including linked records from other tables
+ * Get mapped EventEntity rows including linked records from other tables
  *
  * @param records
  */
-const getMappedRecords = async function (records: readonly EventFields[]): Promise<EventType[]> {
+const getMappedRecords: MappedRecords<EventRecord, EventEntity> = async function (records: readonly EventRecord[]): Promise<EventEntity[]> {
   const relatedTables = [RELATED_TALKS];
   const relatedKeys = getAllRelatedKeys(relatedTables, records);
   const relatedStorage: RelatedStorageType = {
     [RELATED_TALKS]: await getTalksListByKeys(relatedKeys[RELATED_TALKS])
   };
 
-  return records.map((record: EventFields) => mapRecord(record, relatedStorage));
+  return records.map((record: EventRecord) => mapRecord(record, relatedStorage));
 };
 
 /**
- * Map record as EventType
+ * Map record as EventEntity
  *
  * @param record
  * @param relatedStorage
  */
-const mapRecord = function (record: EventFields, relatedStorage: RelatedStorageType): EventType {
+const mapRecord = function (record: EventRecord, relatedStorage: RelatedStorageType): EventEntity {
   const { id, fields } = record;
 
   return {
@@ -69,10 +69,10 @@ const mapRecord = function (record: EventFields, relatedStorage: RelatedStorageT
     address: fields['Address'] ?? '',
     summary: fields['Summary'] ?? '',
     status: fields['Status'] ?? '',
-    talks: fields.hasOwnProperty(RELATED_TALKS)
+    talks: fields[RELATED_TALKS]
       ? joinTalks(fields[RELATED_TALKS], relatedStorage[RELATED_TALKS])
       : []
-  } as EventType;
+  } as EventEntity;
 };
 
 /**
@@ -81,12 +81,12 @@ const mapRecord = function (record: EventFields, relatedStorage: RelatedStorageT
  * @param keys
  * @param storage
  */
-const joinTalks = function (keys: string[], storage: RelatedRecord<TalkType>): TalkType[] {
+const joinTalks = function (keys: string[] | undefined, storage: RelatedRecord<TalkEntity>): TalkEntity[] {
   if (!keys || !storage) {
     return [];
   }
 
-  return joinRelatedTable(keys, storage) as TalkType[];
+  return joinRelatedTable(keys, storage) as TalkEntity[];
 };
 
 /**
@@ -95,21 +95,21 @@ const joinTalks = function (keys: string[], storage: RelatedRecord<TalkType>): T
  * @param whereFilter object
  */
 async function fetchBaseTable(whereFilter: object) {
-  const records: readonly EventFields[] = (await baseTable
+  const records: readonly EventRecord[] = (await baseTable
     .select(whereFilter)
-    .all()) as EventFields[];
+    .all()) as EventRecord[];
 
   if (!records) {
     return [];
   }
 
-  const mappedRecords: EventType[] = await getMappedRecords(records);
+  const mappedRecords: EventEntity[] = await getMappedRecords(records);
 
   return mappedRecords ?? [];
 }
 
 /**
- * Get list of Events ordered by `EventType Date`
+ * Get list of Events ordered by `EventEntity Date`
  *
  * @param limit number
  */
@@ -130,13 +130,13 @@ export async function getEventList(limit: number) {
 }
 
 /**
- * Get list of Upcoming Events ordered by `EventType Date`
+ * Get list of Upcoming Events ordered by `EventEntity Date`
  *
  * @param limit number
  */
 export async function getUpcomingEventList(limit: number) {
   const whereFilter = {
-    filterByFormula: '({EventType Date} >= NOW())',
+    filterByFormula: '({EventEntity Date} >= NOW())',
     maxRecords: limit,
     sort: [
       {
@@ -152,7 +152,7 @@ export async function getUpcomingEventList(limit: number) {
 }
 
 /**
- * Get EventType by `id`
+ * Get EventEntity by `id`
  *
  * @param id
  */
@@ -167,13 +167,13 @@ export async function getEvent(id: number) {
 }
 
 /**
- * Get list of Past Events ordered by `EventType Date`
+ * Get list of Past Events ordered by `EventEntity Date`
  *
  * @param limit number
  */
 export async function getPastEventList(limit: number) {
   const whereFilter = {
-    filterByFormula: '({EventType Date} <= NOW())',
+    filterByFormula: '({EventEntity Date} <= NOW())',
     maxRecords: limit,
     sort: [
       {

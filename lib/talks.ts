@@ -7,7 +7,7 @@ import {
   MappedRecords,
   RelatedRecord
 } from './db';
-import { AuthorType, TalkType } from '../interfaces';
+import { AuthorEntity, TalkEntity } from '../interfaces';
 import { getAuthorsListByKeys } from './authors';
 
 const base = getDataBase();
@@ -18,7 +18,7 @@ const baseTable = base('Talks');
  */
 const RELATED_AUTHORS = 'Authors';
 
-interface TalkFields extends DbRecord {
+interface TalkRecord extends DbRecord {
   fields: {
     Id: number;
     Title: string;
@@ -33,7 +33,7 @@ interface TalkFields extends DbRecord {
 }
 
 type RelatedStorageType = {
-  [RELATED_AUTHORS]: RelatedRecord<AuthorType>;
+  [RELATED_AUTHORS]: RelatedRecord<AuthorEntity>;
 };
 
 /**
@@ -41,16 +41,16 @@ type RelatedStorageType = {
  *
  * @param records
  */
-const getMappedRecords: MappedRecords<TalkFields, TalkType> = async function (
-  records: readonly TalkFields[]
-): Promise<TalkType[]> {
+const getMappedRecords: MappedRecords<TalkRecord, TalkEntity> = async function (
+  records: readonly TalkRecord[]
+): Promise<TalkEntity[]> {
   const relatedTables = [RELATED_AUTHORS];
   const relatedKeys = getAllRelatedKeys(relatedTables, records);
   const relatedStorage: RelatedStorageType = {
     [RELATED_AUTHORS]: await getAuthorsListByKeys(relatedKeys[RELATED_AUTHORS])
   };
 
-  return records.map((record: TalkFields) => mapRecord(record, relatedStorage));
+  return records.map((record: TalkRecord) => mapRecord(record, relatedStorage));
 };
 
 /**
@@ -59,7 +59,7 @@ const getMappedRecords: MappedRecords<TalkFields, TalkType> = async function (
  * @param record
  * @param relatedStorage
  */
-const mapRecord = function (record: TalkFields, relatedStorage: RelatedStorageType): TalkType {
+const mapRecord = function (record: TalkRecord, relatedStorage: RelatedStorageType): TalkEntity {
   const { id, fields } = record;
 
   return {
@@ -72,10 +72,10 @@ const mapRecord = function (record: TalkFields, relatedStorage: RelatedStorageTy
     tags: fields['Tags'] ?? [],
     status: fields['Status'] ?? '',
     location: fields['Priority'] ?? '',
-    authors: fields.hasOwnProperty(RELATED_AUTHORS)
+    authors: fields[RELATED_AUTHORS]
       ? joinAuthors(fields[RELATED_AUTHORS], relatedStorage[RELATED_AUTHORS])
       : []
-  } as TalkType;
+  } as TalkEntity;
 };
 
 /**
@@ -84,12 +84,12 @@ const mapRecord = function (record: TalkFields, relatedStorage: RelatedStorageTy
  * @param keys
  * @param storage
  */
-const joinAuthors = function (keys: string[], storage: RelatedRecord<AuthorType>): AuthorType[] {
+const joinAuthors = function (keys: string[] | undefined, storage: RelatedRecord<AuthorEntity>): AuthorEntity[] {
   if (!keys || !storage) {
     return [];
   }
 
-  return joinRelatedTable(keys, storage) as AuthorType[];
+  return joinRelatedTable(keys, storage) as AuthorEntity[];
 };
 
 /**
@@ -102,15 +102,15 @@ export async function getTalk(id: number) {
     filterByFormula: `({Id} = ${id})`,
     maxRecords: 1
   };
-  const records: readonly TalkFields[] = (await baseTable
+  const records: readonly TalkRecord[] = (await baseTable
     .select(whereFilter)
-    .all()) as TalkFields[];
+    .all()) as TalkRecord[];
 
   if (!records) {
     return {};
   }
 
-  const mappedRow: readonly TalkType[] = await getMappedRecords(records);
+  const mappedRow: readonly TalkEntity[] = await getMappedRecords(records);
 
   return mappedRow ? mappedRow[0] : {};
 }
@@ -122,7 +122,7 @@ export async function getTalk(id: number) {
  * @param limit
  */
 export async function getTalksListByKeys(keys: string[], limit?: number) {
-  return await getRelatedRecordsByKeys<TalkFields, TalkType>(
+  return await getRelatedRecordsByKeys<TalkRecord, TalkEntity>(
     baseTable,
     getMappedRecords,
     keys,

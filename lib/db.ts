@@ -5,6 +5,7 @@ export interface DbRecord extends Airtable.Record<Airtable.FieldSet> {}
 interface DbTable extends Airtable.Table<Airtable.FieldSet> {}
 
 export interface MappedRecords<F extends DbRecord, T extends Entity> {
+  // eslint-disable-next-line no-unused-vars
   (records: readonly F[]): T[] | Promise<T[]>;
 }
 export interface RelatedRecord<T> {
@@ -22,8 +23,8 @@ const Db = (function () {
 
   const createDbInstance = function () {
     return new Airtable({
-      apiKey: process.env.AIRTABLE_API_KEY
-    }).base(process.env.AIRTABLE_BASE_ID);
+      apiKey: process.env.AIRTABLE_API_KEY ? process.env.AIRTABLE_API_KEY : ''
+    }).base(process.env.AIRTABLE_BASE_ID ? process.env.AIRTABLE_BASE_ID : '');
   };
 
   return {

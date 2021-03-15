@@ -10,7 +10,7 @@ export interface Entity {
  * Events
  */
 
-export interface EventType extends Entity {
+export interface EventEntity extends Entity {
   title: string;
   description: string;
   event_date: string;
@@ -18,10 +18,10 @@ export interface EventType extends Entity {
   address: string;
   summary: string;
   status: string;
-  talks: TalkType[];
+  talks: TalkEntity[];
 }
 
-export interface TalkType extends Entity {
+export interface TalkEntity extends Entity {
   title: string;
   description: string;
   talk_date: string;
@@ -29,10 +29,10 @@ export interface TalkType extends Entity {
   tags: string[];
   status: string;
   location: string;
-  authors: AuthorType[];
+  authors: AuthorEntity[];
 }
 
-export interface AuthorType extends Entity {
+export interface AuthorEntity extends Entity {
   email: string;
   name: string;
   about: string;
@@ -44,7 +44,7 @@ export interface AuthorType extends Entity {
 /**
  * Digests
  */
-export interface PostType extends Entity {
+export interface PostEntity extends Entity {
   content: string;
   tags: string[];
   links: string[];
@@ -60,7 +60,7 @@ export interface DigestType extends Entity {
   description: string;
   digest_date: string;
   status: string;
-  posts: PostType[];
+  posts: PostEntity[];
 }
 
 /**
@@ -76,9 +76,3 @@ export interface AttachmentMedia {
 }
 
 export type FilterStatusType = 'active' | 'all' | 'default';
-
-export type FilterType = {
-  id: number;
-  title: string;
-  status: FilterStatusType;
-};

@@ -1,20 +1,20 @@
 import { getDataBase, getRelatedRecordsByKeys, DbRecord, MappedRecords } from './db';
-import { PostType } from '../interfaces';
+import { PostEntity } from '../interfaces';
 
 const base = getDataBase();
 const baseTable = base('Posts');
 
-interface PostFields extends DbRecord {}
+interface PostRecord extends DbRecord {}
 
 /**
  * Get mapped records
  *
  * @param records
  */
-const getMappedRecords: MappedRecords<PostFields, PostType> = function (
-  records: readonly PostFields[]
-): PostType[] {
-  return records.map((record: PostFields) => mapRow(record));
+const getMappedRecords: MappedRecords<PostRecord, PostEntity> = function (
+  records: readonly PostRecord[]
+): PostEntity[] {
+  return records.map((record: PostRecord) => mapRow(record));
 };
 
 /**
@@ -22,7 +22,7 @@ const getMappedRecords: MappedRecords<PostFields, PostType> = function (
  *
  * @param record
  */
-const mapRow = function (record: PostFields): PostType {
+const mapRow = function (record: PostRecord): PostEntity {
   const { id, fields } = record;
 
   return {
@@ -36,7 +36,7 @@ const mapRow = function (record: PostFields): PostType {
     priority: fields['Priority'] ?? '',
     post_date: fields['Created at'] ?? '',
     status: fields['Status'] ?? ''
-  } as PostType;
+  } as PostEntity;
 };
 
 /**
@@ -49,13 +49,13 @@ export async function getPost(id: number) {
     filterByFormula: `({Id} = ${id})`,
     maxRecords: 1
   };
-  const records: readonly PostFields[] = await baseTable.select(whereFilter).all();
+  const records: readonly PostRecord[] = await baseTable.select(whereFilter).all();
 
   if (!records) {
     return {};
   }
 
-  const mappedRow: readonly PostType[] = await getMappedRecords(records);
+  const mappedRow: readonly PostEntity[] = await getMappedRecords(records);
 
   return mappedRow[0];
 }
@@ -67,7 +67,7 @@ export async function getPost(id: number) {
  * @param limit
  */
 export async function getPostsListByKeys(keys: string[], limit?: number) {
-  return await getRelatedRecordsByKeys<PostFields, PostType>(
+  return await getRelatedRecordsByKeys<PostRecord, PostEntity>(
     baseTable,
     getMappedRecords,
     keys,

@@ -7,7 +7,7 @@ import {
   MappedRecords,
   RelatedKeys
 } from './db';
-import { DigestType, PostType } from '../interfaces';
+import { DigestType, PostEntity } from '../interfaces';
 import { getPostsListByKeys } from './posts';
 
 const base = getDataBase();
@@ -18,7 +18,7 @@ const baseTable = base('Digests');
  */
 const RELATED_POSTS = 'Posts';
 
-interface DigestFields extends DbRecord {
+interface DigestRecord extends DbRecord {
   fields: {
     Id: number;
     Title: string;
@@ -30,7 +30,7 @@ interface DigestFields extends DbRecord {
 }
 
 type RelatedStorageType = {
-  [RELATED_POSTS]: RelatedRecord<PostType>;
+  [RELATED_POSTS]: RelatedRecord<PostEntity>;
 };
 
 /**
@@ -38,8 +38,8 @@ type RelatedStorageType = {
  *
  * @param records
  */
-const getMappedRecords: MappedRecords<DigestFields, DigestType> = async function (
-  records: readonly DigestFields[]
+const getMappedRecords: MappedRecords<DigestRecord, DigestType> = async function (
+  records: readonly DigestRecord[]
 ): Promise<DigestType[]> {
   const relatedTables = [RELATED_POSTS];
   const relatedKeys: RelatedKeys = getAllRelatedKeys(relatedTables, records);
@@ -47,7 +47,7 @@ const getMappedRecords: MappedRecords<DigestFields, DigestType> = async function
     [RELATED_POSTS]: await getPostsListByKeys(relatedKeys[RELATED_POSTS])
   };
 
-  return records.map((record: DigestFields) => mapRecord(record, relatedStorage));
+  return records.map((record: DigestRecord) => mapRecord(record, relatedStorage));
 };
 
 /**
@@ -56,7 +56,7 @@ const getMappedRecords: MappedRecords<DigestFields, DigestType> = async function
  * @param record AuthorFields
  * @param relatedStorage RelatedStorageType
  */
-const mapRecord = function (record: DigestFields, relatedStorage: RelatedStorageType): DigestType {
+const mapRecord = function (record: DigestRecord, relatedStorage: RelatedStorageType): DigestType {
   const { id, fields } = record;
   return {
     id: id,
@@ -65,7 +65,7 @@ const mapRecord = function (record: DigestFields, relatedStorage: RelatedStorage
     description: fields['Description'] ?? '',
     status: fields['Status'] ?? '',
     digest_date: fields['Digest Date'] ?? '',
-    posts: fields.hasOwnProperty(RELATED_POSTS)
+    posts: fields[RELATED_POSTS]
       ? joinPosts(fields[RELATED_POSTS], relatedStorage[RELATED_POSTS])
       : []
   } as DigestType;
@@ -75,14 +75,14 @@ const mapRecord = function (record: DigestFields, relatedStorage: RelatedStorage
  * Join data from related Posts table
  *
  * @param keys string[]
- * @param storage RelatedRecord<PostType>
+ * @param storage RelatedRecord<PostEntity>
  */
-const joinPosts = function (keys: string[], storage: RelatedRecord<PostType>): PostType[] {
+const joinPosts = function (keys: string[] | undefined, storage: RelatedRecord<PostEntity>): PostEntity[] {
   if (!keys || !storage) {
     return [];
   }
 
-  return joinRelatedTable(keys, storage) as PostType[];
+  return joinRelatedTable(keys, storage) as PostEntity[];
 };
 
 /**
@@ -91,9 +91,9 @@ const joinPosts = function (keys: string[], storage: RelatedRecord<PostType>): P
  * @param whereFilter object
  */
 async function fetchBaseTable(whereFilter: object) {
-  const records: readonly DigestFields[] = (await baseTable
+  const records: readonly DigestRecord[] = (await baseTable
     .select(whereFilter)
-    .all()) as DigestFields[];
+    .all()) as DigestRecord[];
 
   if (!records) {
     return [];

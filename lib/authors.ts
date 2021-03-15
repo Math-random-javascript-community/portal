@@ -1,28 +1,28 @@
 import { getDataBase, getRelatedRecordsByKeys, MappedRecords, DbRecord } from './db';
-import { AuthorType } from '../interfaces';
+import { AuthorEntity } from '../interfaces';
 
 const base = getDataBase();
 const baseTable: Airtable.Table<any> = base('Authors');
 
-interface AuthorFields extends DbRecord {}
+interface AuthorRecord extends DbRecord {}
 
 /**
  * Get mapped records
  *
  * @param records
  */
-const getMappedRecords: MappedRecords<AuthorFields, AuthorType> = function (
-  records: readonly AuthorFields[]
-): AuthorType[] {
-  return records.map((record: AuthorFields) => mapRow(record));
+const getMappedRecords: MappedRecords<AuthorRecord, AuthorEntity> = function (
+  records: readonly AuthorRecord[]
+): AuthorEntity[] {
+  return records.map((record: AuthorRecord) => mapRow(record));
 };
 
 /**
- *  Map a record as AuthorType
+ *  Map a record as AuthorEntity
  *
  * @param record
  */
-const mapRow = function (record: AuthorFields): AuthorType {
+const mapRow = function (record: AuthorRecord): AuthorEntity {
   const { id, fields } = record;
 
   return {
@@ -34,11 +34,11 @@ const mapRow = function (record: AuthorFields): AuthorType {
     links: fields['Links'] ?? [],
     photo: fields['Photo'] ?? [],
     status: fields['Status'] ?? ''
-  } as AuthorType;
+  } as AuthorEntity;
 };
 
 /**
- * Get AuthorType object by `id`
+ * Get AuthorEntity object by `id`
  *
  * @param id
  */
@@ -51,13 +51,13 @@ export async function getAuthor(id: number) {
     filterByFormula: `({Id} = ${id})`,
     maxRecords: 1
   };
-  const records: readonly AuthorFields[] = await baseTable.select(whereFilter).all();
+  const records: readonly AuthorRecord[] = await baseTable.select(whereFilter).all();
 
   if (!records) {
     return {};
   }
 
-  const mappedRow: readonly AuthorType[] = await getMappedRecords(records);
+  const mappedRow: readonly AuthorEntity[] = await getMappedRecords(records);
 
   return mappedRow && mappedRow[0] ? mappedRow[0] : {};
 }
@@ -69,7 +69,7 @@ export async function getAuthor(id: number) {
  * @param limit
  */
 export async function getAuthorsListByKeys(keys: string[], limit?: number) {
-  return await getRelatedRecordsByKeys<AuthorFields, AuthorType>(
+  return await getRelatedRecordsByKeys<AuthorRecord, AuthorEntity>(
     baseTable,
     getMappedRecords,
     keys,
