@@ -20,7 +20,6 @@ const RELATED_POSTS = 'Posts';
 
 interface DigestRecord extends DbRecord {
   fields: {
-    Id: number;
     Title: string;
     Description: string;
     Status: string;
@@ -60,7 +59,6 @@ const mapRecord = function (record: DigestRecord, relatedStorage: RelatedStorage
   const { id, fields } = record;
   return {
     id: id,
-    Id: fields['Id'],
     title: fields['Title'] ?? '',
     description: fields['Description'] ?? '',
     status: fields['Status'] ?? '',
@@ -130,9 +128,9 @@ export async function getDigestList(limit: number) {
  *
  * @param id
  */
-export async function getDigest(id: number) {
+export async function getDigest(id: string) {
   const whereFilter = {
-    filterByFormula: `({Id} = ${id})`,
+    filterByFormula: `(RECORD_ID() = ${id})`,
     maxRecords: 1
   };
   const records: readonly DigestType[] = await fetchBaseTable(whereFilter);

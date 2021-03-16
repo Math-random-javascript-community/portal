@@ -27,7 +27,6 @@ const mapRow = function (record: PostRecord): PostEntity {
 
   return {
     id: id,
-    Id: fields['Id'],
     content: fields['Content'] ?? '',
     tags: fields['Tags'] ?? [],
     links: fields['Links'] ?? [],
@@ -44,9 +43,9 @@ const mapRow = function (record: PostRecord): PostEntity {
  *
  * @param id
  */
-export async function getPost(id: number) {
+export async function getPost(id: string) {
   const whereFilter = {
-    filterByFormula: `({Id} = ${id})`,
+    filterByFormula: `(RECORD_ID() = ${id})`,
     maxRecords: 1
   };
   const records: readonly PostRecord[] = await baseTable.select(whereFilter).all();

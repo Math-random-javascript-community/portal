@@ -19,7 +19,6 @@ const RELATED_TALKS = 'Talks';
 
 interface EventRecord extends DbRecord {
   fields: {
-    Id: number;
     Title: string;
     Description: string;
     'EventType Date': string;
@@ -61,7 +60,6 @@ const mapRecord = function (record: EventRecord, relatedStorage: RelatedStorageT
 
   return {
     id: id,
-    Id: fields['Id'],
     title: fields['Title'] ?? '',
     description: fields['Description'] ?? '',
     event_date: fields['EventType Date'] ?? '',
@@ -156,9 +154,9 @@ export async function getUpcomingEventList(limit: number) {
  *
  * @param id
  */
-export async function getEvent(id: number) {
+export async function getEvent(id: string) {
   const whereFilter = {
-    filterByFormula: `({Id} = ${id})`,
+    filterByFormula: `(RECORD_ID() = ${id})`,
     maxRecords: 1
   };
   const records = await fetchBaseTable(whereFilter);

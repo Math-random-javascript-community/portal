@@ -20,7 +20,6 @@ const RELATED_AUTHORS = 'Authors';
 
 interface TalkRecord extends DbRecord {
   fields: {
-    Id: number;
     Title: string;
     Description: string;
     'Talk Date': string;
@@ -64,7 +63,6 @@ const mapRecord = function (record: TalkRecord, relatedStorage: RelatedStorageTy
 
   return {
     id: id,
-    Id: fields['Id'],
     title: fields['Title'] ?? '',
     description: fields['Description'] ?? '',
     talk_date: fields['Talk Date'] ?? '',
@@ -97,9 +95,9 @@ const joinAuthors = function (keys: string[] | undefined, storage: RelatedRecord
  *
  * @param id
  */
-export async function getTalk(id: number) {
+export async function getTalk(id: string) {
   const whereFilter = {
-    filterByFormula: `({Id} = ${id})`,
+    filterByFormula: `(RECORD_ID() = ${id})`,
     maxRecords: 1
   };
   const records: readonly TalkRecord[] = (await baseTable

@@ -3,7 +3,7 @@
  */
 export interface Entity {
   id: string;
-  Id: number;
+  status: string;
 }
 
 /**
@@ -17,7 +17,6 @@ export interface EventEntity extends Entity {
   location: string;
   address: string;
   summary: string;
-  status: string;
   talks: TalkEntity[];
 }
 
@@ -27,7 +26,6 @@ export interface TalkEntity extends Entity {
   talk_date: string;
   language: string;
   tags: string[];
-  status: string;
   location: string;
   authors: AuthorEntity[];
 }
@@ -38,7 +36,6 @@ export interface AuthorEntity extends Entity {
   about: string;
   links: string[];
   photo: AttachmentMedia[];
-  status: string;
 }
 
 /**
@@ -52,14 +49,12 @@ export interface PostEntity extends Entity {
   media: AttachmentMedia[];
   priority: number;
   post_date: string;
-  status: string;
 }
 
 export interface DigestType extends Entity {
   title: string;
   description: string;
   digest_date: string;
-  status: string;
   posts: PostEntity[];
 }
 
@@ -74,5 +69,3 @@ export interface AttachmentMedia {
   filename: string;
   thumbnails: object;
 }
-
-export type FilterStatusType = 'active' | 'all' | 'default';

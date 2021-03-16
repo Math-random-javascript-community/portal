@@ -27,7 +27,6 @@ const mapRow = function (record: AuthorRecord): AuthorEntity {
 
   return {
     id: id,
-    Id: fields['Id'],
     name: fields['Name'] ?? '',
     email: fields['Email'] ?? '',
     about: fields['About'] ?? '',
@@ -42,13 +41,13 @@ const mapRow = function (record: AuthorRecord): AuthorEntity {
  *
  * @param id
  */
-export async function getAuthor(id: number) {
+export async function getAuthor(id: string) {
   if (!id) {
     return {};
   }
 
   const whereFilter = {
-    filterByFormula: `({Id} = ${id})`,
+    filterByFormula: `(RECORD_ID() = ${id})`,
     maxRecords: 1
   };
   const records: readonly AuthorRecord[] = await baseTable.select(whereFilter).all();
