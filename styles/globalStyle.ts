@@ -54,7 +54,11 @@ const DEFAULT_THEME: DefaultTheme = {
     defaultColor: COLORS.deepSea80
   },
   tag: {
-    defaultColor: COLORS.toxicGreen
+    defaultColor: COLORS.toxicGreen,
+  },
+  menu: {
+    activeColor: COLORS.lemonSun,
+    activeBackgroundColor: COLORS.graphiteGrey
   }
 };
 
