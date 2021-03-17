@@ -2,15 +2,15 @@ import { createGlobalStyle, css, DefaultTheme } from 'styled-components';
 import { normalize } from 'styled-normalize';
 
 const COLORS = {
-  black: '#000000',
-  hotRed: '#ff3f06',
-  toxicGreen: '#06ffbb',
-  lemonSun: '#ffe400',
-  deepSea: '#064aff',
+  black: 'rgba(0, 0, 0 ,1)',
+  hotRed: 'rgba(255, 63, 6, 1)',
+  toxicGreen: 'rgba(6, 255, 187 ,1)',
+  lemonSun: 'rgba(255, 228, 0, 1)',
+  deepSea: 'rgba(6, 74, 255 ,1)',
   deepSea80: 'rgba(6, 135, 255, 0.8)',
-  graphiteGrey: '#333333',
-  crystalWhite: '#ffffff',
-  charcoalBlack: '#1A1A1A',
+  graphiteGrey: 'rgba(51, 51, 51, 1)',
+  crystalWhite: 'rgba(255, 255, 255)',
+  charcoalBlack: 'rgba(26,26,26,1)',
   brightGrey: 'rgba(255, 255, 255, 0.6)',
   graphite30: 'rgba(51, 51, 51, 0.3)',
 };
@@ -32,6 +32,11 @@ const DEFAULT_THEME: DefaultTheme = {
     standardBorderColor: COLORS.crystalWhite,
     standardBackground: COLORS.graphiteGrey,
     standardColor: COLORS.crystalWhite,
+  },
+  dropdown: {
+    backgroundColor: COLORS.graphiteGrey,
+    borderColor: COLORS.brightGrey,
+    activeColor: COLORS.crystalWhite
   },
   icon: {
     defaultColor: COLORS.crystalWhite,
@@ -75,7 +80,7 @@ const fontStyle = css`
 `;
 
 const bodyStyle = css`
-  ${fontStyle}
+  ${fontStyle};
 
   font-family: Ubuntu, sans-serif;
 `;
