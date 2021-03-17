@@ -1,13 +1,13 @@
-import {Meta, Story} from '@storybook/react/types-6-0';
+import { Meta, Story } from '@storybook/react/types-6-0';
 import React from 'react';
-import {Avatar} from './Avatar';
-import {AvatarBig} from './AvatarBig';
-import {AvatarSmall} from './AvatarSmall';
-import {AvatarProps, AvatarBigProps, AvatarSmallProps} from './Avatar.interfaces';
+import { Avatar } from './Avatar';
+import { AvatarBig } from './AvatarBig';
+import { AvatarSmall } from './AvatarSmall';
+import { AvatarProps, AvatarBigProps, AvatarSmallProps } from './Avatar.interfaces';
 
 export default {
   title: 'Components/Avatar',
-  component: Avatar,
+  component: Avatar
 } as Meta;
 
 export const Normal: Story<AvatarProps> = (args: AvatarProps) => <Avatar {...args} />;

@@ -12,5 +12,5 @@ export interface EventImageProps extends Omit<ImageProps, 'width' | 'height' | '
 export interface SpeakerProps extends Omit<ImageProps, 'isWide' | 'width' | 'height'> {}
 
 export interface DefaultImageProps {
-  className?: string 
+  className?: string;
 }

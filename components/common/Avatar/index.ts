@@ -1,9 +1,5 @@
-import {Avatar} from './Avatar';
-import {AvatarBig} from './AvatarBig';
-import {AvatarSmall} from './AvatarSmall';
+import { Avatar } from './Avatar';
+import { AvatarBig } from './AvatarBig';
+import { AvatarSmall } from './AvatarSmall';
 
-export {
-  Avatar,
-  AvatarBig,
-  AvatarSmall
-};
+export { Avatar, AvatarBig, AvatarSmall };

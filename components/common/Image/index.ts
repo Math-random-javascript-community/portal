@@ -1,7 +1,4 @@
-import {Image} from './Image';
-import {Event} from './Event';
+import { Image } from './Image';
+import { Event } from './Event';
 
-export {
-  Image,
-  Event
-};
+export { Image, Event };
