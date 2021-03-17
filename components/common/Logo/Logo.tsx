@@ -1,14 +1,8 @@
 import styled from 'styled-components';
 import LogoImgBottom from './LogoImgBottom';
 import LogoImgTop from './LogoImgTop';
-import { LogoProps } from './Logo.interface';
-
-const availableColours: readonly string[] = [
-  '#0687FF',
-  '#06FFBB',
-  '#FFE400',
-  '#FF3F06'
-];
+import {LogoProps} from './Logo.interface';
+import {availableColours} from '../../../constants/logoColors';
 
 const Wrapper = styled.div`
   display: flex;
