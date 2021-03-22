@@ -1,4 +1,4 @@
-import { createGlobalStyle, css, DefaultTheme } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
 
 const COLORS = {
@@ -14,11 +14,12 @@ const COLORS = {
   brightGrey: 'rgba(255, 255, 255, 0.6)',
   graphite30: 'rgba(51, 51, 51, 0.3)',
   graphiteLight: 'rgba(86, 86, 86, 1)',
+  brown: 'rgb(165, 42, 42)'
 };
 
-const DEFAULT_THEME: DefaultTheme = {
+const DEFAULT_THEME = {
   body: {
-    backgroundColor: COLORS.charcoalBlack,
+    backgroundColor: COLORS.charcoalBlack
   },
   button: {
     primaryBackground: COLORS.lemonSun,
@@ -32,7 +33,7 @@ const DEFAULT_THEME: DefaultTheme = {
     positiveColor: COLORS.black,
     standardBorderColor: COLORS.crystalWhite,
     standardBackground: COLORS.graphiteGrey,
-    standardColor: COLORS.crystalWhite,
+    standardColor: COLORS.crystalWhite
   },
   dropdown: {
     backgroundColor: COLORS.graphiteGrey,
@@ -41,15 +42,15 @@ const DEFAULT_THEME: DefaultTheme = {
   },
   icon: {
     defaultColor: COLORS.crystalWhite,
-    activeColor: COLORS.lemonSun,
+    activeColor: COLORS.lemonSun
   },
   image: {
     backgroundColor: COLORS.graphiteGrey,
-    defaultColor: COLORS.graphiteLight,
+    defaultColor: COLORS.graphiteLight
   },
   avatar: {
     backgroundColor: COLORS.graphiteGrey,
-    defaultColor: COLORS.graphiteLight,
+    defaultColor: COLORS.graphiteLight
   },
   textInput: {
     defaultBorderColor: COLORS.crystalWhite,
@@ -59,54 +60,55 @@ const DEFAULT_THEME: DefaultTheme = {
     validBorderColor: COLORS.toxicGreen,
     requiredSignColor: COLORS.hotRed,
     bottomTextColor: COLORS.brightGrey,
-    errorTextColor: COLORS.hotRed,
+    errorTextColor: COLORS.hotRed
   },
   text: {
-    defaultColor: COLORS.crystalWhite,
+    defaultColor: COLORS.crystalWhite
   },
   customLink: {
     defaultColor: COLORS.deepSea80
   },
   tag: {
-    defaultColor: COLORS.toxicGreen,
+    defaultColor: COLORS.toxicGreen
   },
   menu: {
     activeColor: COLORS.lemonSun,
     activeBackgroundColor: COLORS.graphiteGrey
+  },
+  digestItem: {
+    backgroundColor: COLORS.graphite30
+  },
+  horizontalLine: {
+    defaultColor: COLORS.lemonSun
+  },
+  errors: {
+    containerBackgroundColor: COLORS.black,
+    color: COLORS.brown
   }
 };
+interface GlobalStyleProps {
+  theme: typeof DEFAULT_THEME;
+}
 
-const UBUNTU_FONT_URL =
-  'https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap';
-
-const fontStyle = css`
-  @font-face {
-    font-family: 'Ubuntu';
-    font-weight: 400;
-    font-style: normal;
-    src: url(${UBUNTU_FONT_URL});
-  }
-`;
-
-const bodyStyle = css`
-  ${fontStyle};
-
-  font-family: Ubuntu, sans-serif;
-`;
-
-const commonStyle = css`
-  box-sizing: border-box;
-`;
-
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   ${normalize}
 
   * {
-    ${commonStyle}
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
   
-  body {
-    ${bodyStyle}
+  html, body {
+    font-family: Ubuntu, sans-serif;
+    font-style: normal;
+    background-color: ${({ theme }) => theme.body.backgroundColor};
+    color: white;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
 `;
 
