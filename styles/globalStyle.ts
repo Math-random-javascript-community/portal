@@ -19,7 +19,8 @@ const COLORS = {
 
 const DEFAULT_THEME = {
   body: {
-    backgroundColor: COLORS.charcoalBlack
+    backgroundColor: COLORS.charcoalBlack,
+    color: COLORS.crystalWhite
   },
   button: {
     primaryBackground: COLORS.lemonSun,
@@ -103,7 +104,7 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     font-family: Ubuntu, sans-serif;
     font-style: normal;
     background-color: ${({ theme }) => theme.body.backgroundColor};
-    color: white;
+    color: ${({ theme }) => theme.body.color};
   }
 
   a {
