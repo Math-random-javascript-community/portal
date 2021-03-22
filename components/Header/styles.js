@@ -13,11 +13,10 @@ export const Wrapper = styled.div`
   }
 
   .login-icon {
-  
-  & [fill] {
-    fill: black;
+    & [fill] {
+      fill: black;
+    }
   }
-}
 
   @media ${device.tablet} {
     flex-direction: column;
