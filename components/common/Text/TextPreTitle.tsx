@@ -11,7 +11,9 @@ const StyledTextPreTitle = styled(Text)`
 `;
 
 const TextPreTitle = (props: TextProps) => (
-  <StyledTextPreTitle color={props.color}>{props.children}</StyledTextPreTitle>
+  <StyledTextPreTitle color={props.color} className={props.className}>
+    {props.children}
+  </StyledTextPreTitle>
 );
 
 export default TextPreTitle;

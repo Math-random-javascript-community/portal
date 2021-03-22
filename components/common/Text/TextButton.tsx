@@ -11,7 +11,9 @@ const StyledTextButton = styled(Text)`
 `;
 
 const TextButton = (props: TextProps) => (
-  <StyledTextButton color={props.color}>{props.children}</StyledTextButton>
+  <StyledTextButton color={props.color} className={props.className}>
+    {props.children}
+  </StyledTextButton>
 );
 
 export default TextButton;
