@@ -15,7 +15,7 @@ const Header = () => {
       <Wrapper>
         <Link href={'/'}>
           <Logo>
-            <img src={'/logo.svg'} alt={SITE_TITLE} />
+            <img src={'/logo/LogoSolid.svg'} alt={SITE_TITLE} />
           </Logo>
         </Link>
         <MenuItems>
