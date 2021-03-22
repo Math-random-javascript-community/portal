@@ -13,6 +13,7 @@ const COLORS = {
   charcoalBlack: 'rgba(26,26,26,1)',
   brightGrey: 'rgba(255, 255, 255, 0.6)',
   graphite30: 'rgba(51, 51, 51, 0.3)',
+  graphiteLight: 'rgba(86, 86, 86, 1)',
 };
 
 const DEFAULT_THEME: DefaultTheme = {
@@ -41,6 +42,14 @@ const DEFAULT_THEME: DefaultTheme = {
   icon: {
     defaultColor: COLORS.crystalWhite,
     activeColor: COLORS.lemonSun,
+  },
+  image: {
+    backgroundColor: COLORS.graphiteGrey,
+    defaultColor: COLORS.graphiteLight,
+  },
+  avatar: {
+    backgroundColor: COLORS.graphiteGrey,
+    defaultColor: COLORS.graphiteLight,
   },
   textInput: {
     defaultBorderColor: COLORS.crystalWhite,
