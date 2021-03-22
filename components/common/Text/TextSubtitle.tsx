@@ -10,7 +10,9 @@ const StyledTextSubtitle = styled(Text)`
 `;
 
 const TextSubtitle = (props: TextProps) => (
-  <StyledTextSubtitle color={props.color}>{props.children}</StyledTextSubtitle>
+  <StyledTextSubtitle color={props.color} className={props.className}>
+    {props.children}
+  </StyledTextSubtitle>
 );
 
 export default TextSubtitle;

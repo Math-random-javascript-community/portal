@@ -12,7 +12,9 @@ const StyledTextH2 = styled(Text).attrs({
 `;
 
 const TextH2 = (props: TextProps) => (
-  <StyledTextH2 color={props.color}>{props.children}</StyledTextH2>
+  <StyledTextH2 color={props.color} className={props.className}>
+    {props.children}
+  </StyledTextH2>
 );
 
 export default TextH2;

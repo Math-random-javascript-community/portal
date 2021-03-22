@@ -7,7 +7,9 @@ const StyledTextBold = styled(Text)`
 `;
 
 const TextBold = (props: TextProps) => (
-  <StyledTextBold color={props.color}>{props.children}</StyledTextBold>
+  <StyledTextBold color={props.color} className={props.className}>
+    {props.children}
+  </StyledTextBold>
 );
 
 export default TextBold;

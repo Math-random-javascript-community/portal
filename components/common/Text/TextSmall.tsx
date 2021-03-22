@@ -8,7 +8,9 @@ const StyledTextSmall = styled(Text)`
 `;
 
 const TextSmall = (props: TextProps) => (
-  <StyledTextSmall color={props.color}>{props.children}</StyledTextSmall>
+  <StyledTextSmall color={props.color} className={props.className}>
+    {props.children}
+  </StyledTextSmall>
 );
 
 export default TextSmall;
