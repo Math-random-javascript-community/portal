@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   margin-top: 30px;
   display: flex;
   width: 300px;
-  color: burlywood;
+  color: ${({ theme }) => theme.text.color};
 `;
 
 const Loading = () => <Wrapper>Loading...</Wrapper>;
