@@ -13,7 +13,7 @@ const StyledCustomLink = styled.a`
 `;
 
 const CustomLink = ({ url, title = url, className }: CustomLinkProps) => (
-  <StyledCustomLink href={url} target="_blank" className="className">
+  <StyledCustomLink href={url} target="_blank" className={className}>
     {title}
   </StyledCustomLink>
 );
