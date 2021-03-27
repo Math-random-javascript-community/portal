@@ -4,4 +4,5 @@ export interface StyledMenuItemProps {
 
 export interface MenuItemProps extends StyledMenuItemProps {
   text: string;
+  href: string;
 }

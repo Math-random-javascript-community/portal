@@ -19,16 +19,8 @@ const Header = () => {
           </Logo>
         </Link>
         <MenuItems>
-          <Link href="/events">
-            <a>
-              <MenuItem text="Events" active={router.pathname === '/events'} />
-            </a>
-          </Link>
-          <Link href="/digests">
-            <a>
-              <MenuItem text="Digests" active={router.pathname === '/digests'} />
-            </a>
-          </Link>
+          <MenuItem href="/events" text="Events" active={router.pathname === '/events'} />
+          <MenuItem href="/digests" text="Digests" active={router.pathname === '/digests'} />
         </MenuItems>
         <UserWrapper>
           <SecondaryButton text="Sign up" type="button" />
