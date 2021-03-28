@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ImageProps } from './Image.interfaces';
+import Default from './Default';
 
 interface WrapperProps {
   className?: string;
@@ -71,7 +72,11 @@ export function Image({
 
   return (
     <Wrapper className={imgClass} width={imgWidth} height={imgHeight} radius={radius}>
-      <img src={src} alt={alt} width={imgWidth} height={imgHeight} className={className} />
+      {src.length ? (
+        <img src={src} alt={alt} width={imgWidth} height={imgHeight} className={className} />
+      ) : (
+        <Default />
+      )}
     </Wrapper>
   );
 }
