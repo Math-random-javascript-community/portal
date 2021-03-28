@@ -8,21 +8,17 @@ export const Wrapper = styled.div`
   margin-top: 10px;
   width: 100%;
 
-  .mainMenuBtn {
-    display: none;
-  }
-
-  .login-icon {
-    & [fill] {
-      fill: black;
-    }
+  .top-row {
+    display: flex;
+    justify-content: space-between;
   }
 
   @media ${device.tablet} {
     flex-direction: column;
+    padding: 4px;
 
-    .mainMenuBtn {
-      display: flex;
+    .top-row {
+      padding: 17px;
     }
   }
 `;

@@ -5,6 +5,7 @@ import { Footer } from '../Footer';
 import { Header } from '../Header';
 import { SITE_TITLE } from '../../constants/main';
 import styled from 'styled-components';
+import { device } from '../../styles/mediaQueries';
 
 interface LayoutProps {
   children?: ReactNode;
@@ -25,6 +26,12 @@ const Container = styled.div`
   & .footer {
     width: 100%;
     flex-shrink: 0;
+  }
+
+  @media ${device.tablet} {
+    & .main {
+      padding: 0 12px;
+    }
   }
 `;
 
@@ -50,7 +57,7 @@ const Layout = ({ children }: LayoutProps) => (
     <Container>
       <div className="content">
         <Header />
-        <main>{children}</main>
+        <main className="main">{children}</main>
       </div>
       <div className="footer">
         <HorizontalLine />
