@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import format from 'date-fns/format';
 import Link from 'next/link';
-import Image from 'next/image';
+import { Image } from '../common/Image';
 import { DigestType } from '../../interfaces';
 import { TextH3 } from '../common/Text';
 import { Icon, IconSizes, IconTypes } from '../common/Icon';
@@ -55,6 +55,10 @@ const StyledContent = styled.div`
     & .item-image {
       width: 100%;
     }
+
+    & .item-info {
+      margin-left: 0;
+    }
   }
 `;
 
@@ -75,7 +79,7 @@ const DigestItem = ({ item }: DigestItemProps) => {
         </StyledHeader>
         <StyledContent>
           <div className="item-image">
-            <Image src="/event_img.png" alt="default picture" width="214" height="204" />
+            <Image src=""/>
           </div>
           <div className="item-info">
             <TextH3>{item?.title}</TextH3>
