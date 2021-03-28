@@ -1,5 +1,5 @@
-import {IconTypes} from './IconTypes';
-import {IconSizes} from './IconSizes';
+import { IconTypes } from './IconTypes';
+import { IconSizes } from './IconSizes';
 
 export interface IconProps {
   iconType: IconTypes;
@@ -8,6 +8,7 @@ export interface IconProps {
   size?: IconSizes;
   className?: string;
   isActive?: boolean;
+  onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
 export interface IconImgProps {
