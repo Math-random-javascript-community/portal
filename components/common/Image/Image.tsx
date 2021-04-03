@@ -72,11 +72,7 @@ export function Image({
 
   return (
     <Wrapper className={imgClass} width={imgWidth} height={imgHeight} radius={radius}>
-      {src.length ? (
         <img src={src} alt={alt} width={imgWidth} height={imgHeight} className={className} />
-      ) : (
-        <Default />
-      )}
     </Wrapper>
   );
 }

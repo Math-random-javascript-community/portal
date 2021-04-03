@@ -66,29 +66,29 @@ interface DigestItemProps {
   item: DigestType;
 }
 
-const DigestItem = ({ item }: DigestItemProps) => {
-  return (
-    <Link href={`/digests/${item?.id}`}>
-      <Wrapper>
-        <StyledHeader>
-          <Icon iconType={IconTypes.Date} size={IconSizes.Medium} isActive={true} />
-          <Text className="digest-date">
-            {item?.digest_date && format(new Date(item.digest_date), 'dd.MM.yy')}
-          </Text>
-          <TextH3 className="digest-number">Digest 11</TextH3>
-        </StyledHeader>
-        <StyledContent>
-          <div className="item-image">
-            <Image src=""/>
-          </div>
-          <div className="item-info">
-            <TextH3>{item?.title}</TextH3>
-            <Description>{item?.description}</Description>
-          </div>
-        </StyledContent>
-      </Wrapper>
-    </Link>
-  );
-};
+const DigestItem = ({ item }: DigestItemProps) => (
+  <Link href={`/digests/${item?.id}`}>
+    <Wrapper>
+      <StyledHeader>
+        <Icon iconType={IconTypes.Date} size={IconSizes.Medium} isActive={true} />
+        <Text className="digest-date">
+          {item?.digest_date && format(new Date(item.digest_date), 'dd.MM.yy')}
+        </Text>
+        {/* @TODO determine how to assign digest number */}
+        <TextH3 className="digest-number">Digest №</TextH3>
+      </StyledHeader>
+      <StyledContent>
+        <div className="item-image">
+          {/* @TODO 1. Need to handle 'undefined' case; 2. determine the alt attribute */}
+          <Image src={item.posts[0].media[0].url} alt="digest image" />
+        </div>
+        <div className="item-info">
+          <TextH3>{item?.title}</TextH3>
+          <Description>{item?.description}</Description>
+        </div>
+      </StyledContent>
+    </Wrapper>
+  </Link>
+);
 
 export default DigestItem;

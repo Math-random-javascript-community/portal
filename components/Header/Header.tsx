@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import { SITE_TITLE } from '../../constants/main';
 import { MenuItem } from '../common/MenuItem';
 import { SecondaryButton } from '../common/Button';
-import { Wrapper, Logo, MenuItems, UserWrapper } from './styles';
+import { Wrapper, MenuItems, UserWrapper } from './styles';
 import { LoginButton } from '../common/LoginButton';
 import Link from 'next/link';
 import { Icon, IconSizes, IconTypes } from '../common/Icon';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { device } from '../../styles/mediaQueries';
+import { Logo } from '../common/Logo';
 
 const Header = () => {
   const router = useRouter();
@@ -26,9 +26,7 @@ const Header = () => {
         <div className="top-row">
           <Link href={'/'}>
             <a>
-              <Logo>
-                <img src={'/logo/LogoSolid.svg'} alt={SITE_TITLE} />
-              </Logo>
+              <Logo />
             </a>
           </Link>
           {isTablet && !isTabletMenuDisplayed && (
