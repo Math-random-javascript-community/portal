@@ -34,6 +34,10 @@ const DEFAULT_THEME: DefaultTheme = {
     standardBackground: COLORS.graphiteGrey,
     standardColor: COLORS.crystalWhite,
   },
+  checkbox: {
+    defaultColor: COLORS.crystalWhite,
+    activeColor: COLORS.lemonSun,
+  },
   dropdown: {
     backgroundColor: COLORS.graphiteGrey,
     borderColor: COLORS.brightGrey,
