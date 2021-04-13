@@ -64,7 +64,8 @@ const DEFAULT_THEME = {
     errorTextColor: COLORS.hotRed
   },
   text: {
-    defaultColor: COLORS.crystalWhite
+    defaultColor: COLORS.crystalWhite,
+    bodyColor: COLORS.brightGrey
   },
   customLink: {
     defaultColor: COLORS.deepSea80

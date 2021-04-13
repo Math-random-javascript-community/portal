@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 
 const Description = styled.div`
   margin-top: 16px;
-  color: ${({ theme }) => theme.text.secondaryColor};
+  color: ${({ theme }) => theme.text.bodyColor};
 `;
 
 const StyledHeader = styled.div`

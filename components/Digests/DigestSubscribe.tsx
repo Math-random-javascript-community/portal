@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   }
 
   & .subscribe-description {
-    color: ${({ theme }) => theme.text.secondaryColor};
+    color: ${({ theme }) => theme.text.bodyColor};
   }
 `;
 
