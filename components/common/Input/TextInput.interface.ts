@@ -1,8 +1,5 @@
-import { InputHTMLAttributes } from 'react';
-
-export interface StyledTextInputProps extends InputHTMLAttributes<HTMLInputElement> { }
-
-export interface TextInputProps extends StyledTextInputProps {
+import { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
+type CommonProps = {
   value: string;
   name: string;
   label?: string;
@@ -11,4 +8,16 @@ export interface TextInputProps extends StyledTextInputProps {
   hasError?: boolean;
   hasValidValue?: boolean;
   requiredMessage?: string;
+  rows?: number;
+  inputType: 'input' | 'textarea';
 }
+
+export interface StyledTextInputProps extends InputHTMLAttributes<HTMLInputElement> { }
+export interface StyledTextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
+
+export type TextAreaProps =  StyledTextAreaProps & CommonProps;
+export type TextInputProps =  StyledTextInputProps & CommonProps;
+
+
+
+

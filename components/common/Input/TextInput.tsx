@@ -1,8 +1,7 @@
-import { FC } from 'react';
-import styled from 'styled-components';
-import { StyledTextInputProps, TextInputProps } from './TextInput.interface';
+import styled, { css } from 'styled-components';
+import { StyledTextAreaProps, StyledTextInputProps, TextInputProps, TextAreaProps } from './TextInput.interface';
 
-const StyledTextInput = styled.input<StyledTextInputProps>`
+const baseStyles = css`
   border: 1px solid ${({ theme }) => theme.textInput.defaultBorderColor};
   border-radius: 4px;
   padding: 8px 12px;
@@ -19,14 +18,24 @@ const StyledTextInput = styled.input<StyledTextInputProps>`
   &:focus {
     outline: 0;
   }
+
+  &.error{
+    border-color: ${({ theme }) => theme.textInput.errorBorderColor};
+  }
+
+  &.valid {
+    border-color: ${({ theme }) => theme.textInput.validBorderColor};
+  }
 `;
 
-const StyledTextInputWithError = styled(StyledTextInput)`
-  border-color: ${({ theme }) => theme.textInput.errorBorderColor};
+const StyledTextInput = styled.input<StyledTextInputProps>`
+  ${baseStyles}
 `;
 
-const ValidStyledTextInput = styled(StyledTextInput)`
-  border-color: ${({ theme }) => theme.textInput.validBorderColor};
+const StyledTextArea = styled.textarea<StyledTextAreaProps>`
+  ${baseStyles}
+  height: auto;
+  min-height: 40px;
 `;
 
 const Container = styled.div`
@@ -74,36 +83,42 @@ const ErrorTextContainer = styled(BottomTextContainer)`
   color: ${({ theme }) => theme.textInput.errorTextColor};
 `;
 
-export const TextInput: FC<TextInputProps> = ({ label, isRequired, bottomText, hasError, hasValidValue, requiredMessage, ...props }: TextInputProps) => (
-  <Container>
-    <Label>
-      {label && (
-        <LabelTextContainer>
-          {label}{isRequired && <RequiredSignText>*</RequiredSignText>}
-        </LabelTextContainer>
+export const TextInput = ({
+  label = '',
+  isRequired = false,
+  bottomText = '',
+  hasError = false,
+  hasValidValue = false,
+  requiredMessage = '',
+  rows = 4,
+  inputType = 'input',
+  ...props
+}: TextInputProps & TextAreaProps) => {
+  let styleClass = '';
+  if (hasError) {
+    styleClass = 'error';
+  }
+  if (!hasError && hasValidValue) {
+    styleClass = 'valid';
+  }
+  return (
+    <Container>
+      <Label>
+        {label && (
+          <LabelTextContainer>
+            {label}
+            {isRequired && <RequiredSignText>*</RequiredSignText>}
+          </LabelTextContainer>
+        )}
+        {inputType === 'input' && <StyledTextInput className={styleClass} {...props} />}
+        {inputType === 'textarea' && (
+          <StyledTextArea className={styleClass} rows={rows} {...props} />
+        )}
+      </Label>
+      {bottomText && <BottomTextContainer>{bottomText}</BottomTextContainer>}
+      {hasError && isRequired && requiredMessage && (
+        <ErrorTextContainer>{requiredMessage}</ErrorTextContainer>
       )}
-      {hasError && <StyledTextInputWithError {...props} />}
-      {!hasError && hasValidValue && <ValidStyledTextInput {...props} />}
-      {!hasError && !hasValidValue && <StyledTextInput {...props} />}
-    </Label>
-    {bottomText && (
-      <BottomTextContainer>
-        {bottomText}
-      </BottomTextContainer>
-    )}
-    {hasError && isRequired && requiredMessage && (
-      <ErrorTextContainer>
-        {requiredMessage}
-      </ErrorTextContainer>
-    )}
-  </Container>
-);
-
-TextInput.defaultProps = {
-  label: '',
-  isRequired: false,
-  bottomText: '',
-  hasError: false,
-  hasValidValue: false,
-  requiredMessage: '',
+    </Container>
+  );
 };
