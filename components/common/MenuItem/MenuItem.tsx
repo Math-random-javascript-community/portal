@@ -18,8 +18,8 @@ const StyledMenuItem = styled.a<StyledMenuItemProps>`
   color: ${({ active, theme }) => (active ? theme.menu.activeColor : theme.text.defaultColor)};
 
   @media ${device.tablet} {
-    background: ${({ active, theme }) => (active ? theme.menu.activeBackgroundColor : ``)};
-    border-radius: ${({ active }) => (active ? `4px` : `unset`)};
+    background: ${({ active, theme }) => (active ? theme.menu.activeBackgroundColor : '')};
+    border-radius: ${({ active }) => (active ? '4px' : 'unset')};
   }
 `;
 export const MenuItem = ({ active = false, text, href }: MenuItemProps) => (
