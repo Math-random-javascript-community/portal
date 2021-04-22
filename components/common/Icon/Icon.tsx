@@ -8,6 +8,7 @@ import {IconProps, ImgComponentProps} from './Icon.interfaces';
 interface WrapperProps {
   iconWidth?: number;
   iconHeight?: number;
+  onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
 const Wrapper = styled.div<WrapperProps>`
@@ -66,14 +67,22 @@ const Wrapper = styled.div<WrapperProps>`
 const getImgComponent = (iconType: IconTypes): React.ComponentType<ImgComponentProps> =>
   dynamic(() => import(`./inlineImages/${iconType}`), {ssr: true});
 
-export function Icon({iconType, className, width, height, size = IconSizes.Medium, isActive = false}: IconProps) {
+export function Icon({
+  iconType,
+  className,
+  width,
+  height,
+  size = IconSizes.Medium,
+  isActive = false,
+  onClick
+}: IconProps) {
   const activeStyle = isActive === true ? 'Active' : 'Inactive';
-  const iconSizeStyle = (!width && !height) ? size : '';
+  const iconSizeStyle = !width && !height ? size : '';
   const ImgComponent: React.ComponentType<ImgComponentProps> = getImgComponent(iconType);
 
   return (
-    <Wrapper iconWidth={width} iconHeight={height} className={className}>
-      <ImgComponent className={`icon icon${activeStyle} iconSize${iconSizeStyle}`}/>
+    <Wrapper iconWidth={width} iconHeight={height} className={className} onClick={onClick}>
+      <ImgComponent className={`icon icon${activeStyle} iconSize${iconSizeStyle}`} />
     </Wrapper>
   );
 }

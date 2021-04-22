@@ -5,9 +5,9 @@ import { GlobalStyle, APP_THEME } from '../styles/globalStyle';
 export const decorators = [
   Story => (
     <>
-      <GlobalStyle />
       <ThemeProvider theme={APP_THEME}>
         <Story />
+        <GlobalStyle />
       </ThemeProvider>
     </>
   ),

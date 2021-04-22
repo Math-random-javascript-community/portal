@@ -1,4 +1,5 @@
 export interface TextProps {
   children: string,
-  color?: string
+  color?: string,
+  className?: string
 }

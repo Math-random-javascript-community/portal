@@ -12,8 +12,8 @@ const StyledCustomLink = styled.a`
   color: ${({ theme }) => theme.customLink.defaultColor};
 `;
 
-const CustomLink = ({ url, title = url }: CustomLinkProps) => (
-  <StyledCustomLink href={url} target="_blank">
+const CustomLink = ({ url, title = url, className }: CustomLinkProps) => (
+  <StyledCustomLink href={url} target="_blank" className={className}>
     {title}
   </StyledCustomLink>
 );
