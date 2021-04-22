@@ -2,7 +2,6 @@ sudo: false
 language: node_js
 node_js:
   - 14
-  - 15
 # keep the npm cache to speed up installs
 cache:
   directories:
