@@ -58,7 +58,8 @@ const DigestSubscribe = () => {
           name="email"
           placeholder="Type your email here"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          // TODO remove any
+          onChange={(event: any) => setEmail(event.target.value)}
           className="form-item"
         />
         <PrimaryButton text="Subscribe" type="button" />
