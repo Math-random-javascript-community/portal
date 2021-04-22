@@ -26,6 +26,7 @@ jobs:
         npm run build
       env:
         CI: true
+        AIRTABLE_API_KEY: keynknGGkjsDHqypr
 
 #   deploy:
 #     needs: [build]
