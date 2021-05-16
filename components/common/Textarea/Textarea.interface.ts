@@ -1,6 +1,6 @@
 import { TextareaHTMLAttributes } from 'react';
 
-export interface StyledTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> { }
+export interface StyledTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
 export interface TextareaProps extends StyledTextareaProps {
   value: string;

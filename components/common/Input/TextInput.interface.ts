@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 
-export interface StyledTextInputProps extends InputHTMLAttributes<HTMLInputElement> { }
+export interface StyledTextInputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 export interface TextInputProps extends StyledTextInputProps {
   value: string;

@@ -74,27 +74,30 @@ const ErrorTextContainer = styled(BottomTextContainer)`
   color: ${({ theme }) => theme.textInput.errorTextColor};
 `;
 
-export const TextInput: FC<TextInputProps> = ({ label, isRequired, bottomText, hasError, hasValidValue, requiredMessage, ...props }: TextInputProps) => (
+export const TextInput: FC<TextInputProps> = ({
+  label,
+  isRequired,
+  bottomText,
+  hasError,
+  hasValidValue,
+  requiredMessage,
+  ...props
+}: TextInputProps) => (
   <Container>
     <Label>
       {label && (
         <LabelTextContainer>
-          {label}{isRequired && <RequiredSignText>*</RequiredSignText>}
+          {label}
+          {isRequired && <RequiredSignText>*</RequiredSignText>}
         </LabelTextContainer>
       )}
       {hasError && <StyledTextInputWithError {...props} />}
       {!hasError && hasValidValue && <ValidStyledTextInput {...props} />}
       {!hasError && !hasValidValue && <StyledTextInput {...props} />}
     </Label>
-    {bottomText && (
-      <BottomTextContainer>
-        {bottomText}
-      </BottomTextContainer>
-    )}
+    {bottomText && <BottomTextContainer>{bottomText}</BottomTextContainer>}
     {hasError && isRequired && requiredMessage && (
-      <ErrorTextContainer>
-        {requiredMessage}
-      </ErrorTextContainer>
+      <ErrorTextContainer>{requiredMessage}</ErrorTextContainer>
     )}
   </Container>
 );
@@ -105,5 +108,5 @@ TextInput.defaultProps = {
   bottomText: '',
   hasError: false,
   hasValidValue: false,
-  requiredMessage: '',
+  requiredMessage: ''
 };

@@ -74,27 +74,30 @@ const ErrorTextContainer = styled(BottomTextContainer)`
   color: ${({ theme }) => theme.textInput.errorTextColor};
 `;
 
-export const Textarea: FC<TextareaProps> = ({ label, isRequired, bottomText, hasError, hasValidValue, requiredMessage, ...props }: TextareaProps) => (
+export const Textarea: FC<TextareaProps> = ({
+  label,
+  isRequired,
+  bottomText,
+  hasError,
+  hasValidValue,
+  requiredMessage,
+  ...props
+}: TextareaProps) => (
   <Container>
     <Label>
       {label && (
         <LabelTextContainer>
-          {label}{isRequired && <RequiredSignText>*</RequiredSignText>}
+          {label}
+          {isRequired && <RequiredSignText>*</RequiredSignText>}
         </LabelTextContainer>
       )}
       {hasError && <StyledTextareaWithError {...props} />}
       {!hasError && hasValidValue && <ValidStyledTextarea {...props} />}
       {!hasError && !hasValidValue && <StyledTextarea {...props} />}
     </Label>
-    {bottomText && (
-      <BottomTextContainer>
-        {bottomText}
-      </BottomTextContainer>
-    )}
+    {bottomText && <BottomTextContainer>{bottomText}</BottomTextContainer>}
     {hasError && isRequired && requiredMessage && (
-      <ErrorTextContainer>
-        {requiredMessage}
-      </ErrorTextContainer>
+      <ErrorTextContainer>{requiredMessage}</ErrorTextContainer>
     )}
   </Container>
 );
@@ -106,5 +109,5 @@ Textarea.defaultProps = {
   hasError: false,
   hasValidValue: false,
   requiredMessage: '',
-  rows:  4,
+  rows: 4
 };
