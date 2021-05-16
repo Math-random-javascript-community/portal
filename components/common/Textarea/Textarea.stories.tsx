@@ -1,13 +1,13 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import { TextInputProps } from './TextInput.interface';
-import { TextInput } from './TextInput';
+import { TextareaProps } from './Textarea.interface';
+import { Textarea } from './Textarea';
 
 export default {
-  title: 'Components/TextInput',
-  component: TextInput,
+  title: 'Components/Textarea',
+  component: Textarea,
 } as Meta;
 
-const Template: Story<TextInputProps> = (args) => <TextInput {...args} />;
+const Template: Story<TextareaProps> = (args) => <Textarea {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
